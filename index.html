@@ -1,0 +1,2863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cardiovascular NCLEX Interactive Mastery Lab</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface2: #1c2333;
+    --border: #30363d;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --red: #ff4757;
+    --red-dim: #3d1a20;
+    --orange: #ff9f43;
+    --orange-dim: #3d2810;
+    --yellow: #ffd32a;
+    --yellow-dim: #3d3010;
+    --green: #2ed573;
+    --green-dim: #0f3020;
+    --blue: #1e90ff;
+    --blue-dim: #0a1f3d;
+    --purple: #a55eea;
+    --purple-dim: #241540;
+    --pink: #ff6b9d;
+    --pink-dim: #3d1228;
+    --teal: #26de81;
+    --teal-dim: #0a2918;
+    --cyan: #45aaf2;
+    --cyan-dim: #0a2038;
+    --r: 8px;
+    --r2: 14px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.4);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Sora', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  .site-header {
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #1a0a2e 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 24px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 32px rgba(0,0,0,0.6);
+  }
+
+  .header-top {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .logo-icon {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, var(--red), var(--pink));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+    box-shadow: 0 0 20px rgba(255,71,87,0.4);
+    animation: heartbeat 2s ease-in-out infinite;
+  }
+
+  @keyframes heartbeat {
+    0%,100% { transform: scale(1); box-shadow: 0 0 20px rgba(255,71,87,0.4); }
+    50% { transform: scale(1.06); box-shadow: 0 0 30px rgba(255,71,87,0.7); }
+  }
+
+  .header-title h1 {
+    font-size: clamp(16px, 3vw, 22px);
+    font-weight: 800;
+    background: linear-gradient(90deg, #ff4757, #ff9f43, #ffd32a, #2ed573, #1e90ff, #a55eea);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.5px;
+  }
+
+  .header-title p {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  /* TAB NAV */
+  .tab-nav {
+    display: flex;
+    gap: 2px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 0;
+  }
+
+  .tab-nav::-webkit-scrollbar { display: none; }
+
+  .tab-btn {
+    padding: 10px 14px;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    font-family: 'Sora', sans-serif;
+    font-size: 11.5px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+    border-radius: var(--r) var(--r) 0 0;
+  }
+
+  .tab-btn:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+  .tab-btn.active { color: var(--text); border-bottom-color: var(--red); background: rgba(255,71,87,0.08); }
+
+  /* MAIN */
+  .main { max-width: 1100px; margin: 0 auto; padding: 28px 16px 60px; }
+
+  .section { display: none; }
+  .section.active { display: block; animation: fadeIn 0.3s ease; }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* SECTION HEADERS */
+  .section-header {
+    margin-bottom: 28px;
+  }
+
+  .section-header h2 {
+    font-size: clamp(20px, 4vw, 28px);
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+
+  .section-header p {
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r2);
+    padding: 20px;
+    margin-bottom: 16px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .card:hover { border-color: rgba(255,255,255,0.15); box-shadow: var(--shadow); }
+
+  .card-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+
+  /* BADGES */
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .badge-normal { background: var(--green-dim); color: var(--green); border: 1px solid var(--green); }
+  .badge-abnormal { background: var(--red-dim); color: var(--red); border: 1px solid var(--red); }
+  .badge-warning { background: var(--orange-dim); color: var(--orange); border: 1px solid var(--orange); }
+  .badge-info { background: var(--blue-dim); color: var(--blue); border: 1px solid var(--blue); }
+  .badge-emergency { background: var(--red-dim); color: var(--red); border: 1px solid var(--red); animation: pulse-border 1.5s infinite; }
+
+  @keyframes pulse-border {
+    0%,100% { box-shadow: 0 0 0 0 rgba(255,71,87,0.4); }
+    50% { box-shadow: 0 0 0 4px rgba(255,71,87,0); }
+  }
+
+  /* ALERT BANNERS */
+  .alert {
+    padding: 14px 18px;
+    border-radius: var(--r);
+    margin-bottom: 16px;
+    font-size: 13.5px;
+    border-left: 4px solid;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .alert-emergency { background: var(--red-dim); border-color: var(--red); color: #ffb3b8; }
+  .alert-warning { background: var(--orange-dim); border-color: var(--orange); color: #ffd08a; }
+  .alert-info { background: var(--blue-dim); border-color: var(--blue); color: #90c8ff; }
+  .alert-success { background: var(--green-dim); border-color: var(--green); color: #8affc4; }
+
+  /* BUTTONS */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    border-radius: var(--r);
+    border: none;
+    font-family: 'Sora', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.18s;
+  }
+
+  .btn-primary { background: linear-gradient(135deg, var(--red), var(--pink)); color: white; }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(255,71,87,0.4); }
+  .btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+  .btn-secondary:hover { background: var(--border); }
+  .btn-green { background: linear-gradient(135deg, var(--green), var(--teal)); color: #0d1117; }
+  .btn-green:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(46,213,115,0.35); }
+  .btn-blue { background: linear-gradient(135deg, var(--blue), var(--cyan)); color: white; }
+  .btn-blue:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(30,144,255,0.35); }
+
+  /* REVEAL */
+  .reveal-content { display: none; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); }
+  .reveal-content.open { display: block; animation: fadeIn 0.25s ease; }
+
+  /* ACCORDION */
+  .accordion-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    margin-bottom: 8px;
+    overflow: hidden;
+  }
+
+  .accordion-header {
+    padding: 14px 18px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: 14px;
+    user-select: none;
+    transition: background 0.2s;
+  }
+
+  .accordion-header:hover { background: rgba(255,255,255,0.04); }
+  .accordion-header.open { background: rgba(255,71,87,0.08); color: var(--red); }
+  .accordion-arrow { transition: transform 0.25s; font-size: 12px; color: var(--muted); }
+  .accordion-header.open .accordion-arrow { transform: rotate(180deg); }
+
+  .accordion-body {
+    display: none;
+    padding: 0 18px 16px;
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: #c9d1d9;
+  }
+
+  .accordion-body.open { display: block; animation: fadeIn 0.2s ease; }
+
+  /* DUAL COLUMN */
+  .dual-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  @media (max-width: 640px) {
+    .dual-col { grid-template-columns: 1fr; }
+    .card-grid { grid-template-columns: 1fr; }
+  }
+
+  /* HIGHLIGHT BOXES */
+  .highlight {
+    background: var(--surface2);
+    border-radius: var(--r);
+    padding: 14px;
+    margin: 10px 0;
+    font-size: 13.5px;
+  }
+
+  .highlight-red { background: var(--red-dim); border: 1px solid rgba(255,71,87,0.3); }
+  .highlight-green { background: var(--green-dim); border: 1px solid rgba(46,213,115,0.3); }
+  .highlight-blue { background: var(--blue-dim); border: 1px solid rgba(30,144,255,0.3); }
+  .highlight-orange { background: var(--orange-dim); border: 1px solid rgba(255,159,67,0.3); }
+  .highlight-purple { background: var(--purple-dim); border: 1px solid rgba(165,94,234,0.3); }
+  .highlight-yellow { background: var(--yellow-dim); border: 1px solid rgba(255,211,42,0.3); }
+
+  /* QUIZ */
+  .quiz-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 12px 16px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    color: var(--text);
+    font-family: 'Sora', sans-serif;
+    font-size: 13.5px;
+    cursor: pointer;
+    margin-bottom: 8px;
+    transition: all 0.18s;
+  }
+
+  .quiz-option:hover:not(:disabled) { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.2); }
+  .quiz-option.correct { background: var(--green-dim); border-color: var(--green); color: var(--green); }
+  .quiz-option.wrong { background: var(--red-dim); border-color: var(--red); color: var(--red); }
+  .quiz-option:disabled { cursor: not-allowed; }
+
+  .feedback-box {
+    display: none;
+    padding: 14px;
+    border-radius: var(--r);
+    margin-top: 12px;
+    font-size: 13.5px;
+    line-height: 1.6;
+  }
+
+  .feedback-box.correct-fb { display: block; background: var(--green-dim); border: 1px solid var(--green); color: #8affc4; }
+  .feedback-box.wrong-fb { display: block; background: var(--red-dim); border: 1px solid var(--red); color: #ffb3b8; }
+
+  /* PROGRESS */
+  .progress-bar-wrap {
+    background: var(--surface2);
+    border-radius: 20px;
+    height: 8px;
+    margin: 10px 0;
+    overflow: hidden;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--red), var(--orange));
+    border-radius: 20px;
+    transition: width 0.5s ease;
+  }
+
+  /* SCORE */
+  .score-display {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r2);
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .score-big {
+    font-size: 48px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--green), var(--teal));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* SOUND CARD */
+  .sound-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r2);
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sound-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px;
+    height: 100%;
+  }
+
+  .sound-card.s1::before { background: var(--green); }
+  .sound-card.s2::before { background: var(--blue); }
+  .sound-card.s3::before { background: var(--orange); }
+  .sound-card.s4::before { background: var(--red); }
+  .sound-card.murmur::before { background: var(--purple); }
+  .sound-card.muffled::before { background: var(--muted); }
+  .sound-card.rub::before { background: var(--pink); }
+
+  .sound-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+  .sound-card.active-card { border-color: rgba(255,255,255,0.3); box-shadow: var(--shadow); }
+
+  /* MATCH GAME */
+  .match-item {
+    padding: 12px 16px;
+    background: var(--surface2);
+    border: 2px solid var(--border);
+    border-radius: var(--r);
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.18s;
+    user-select: none;
+  }
+
+  .match-item:hover { border-color: var(--blue); color: var(--cyan); }
+  .match-item.selected { border-color: var(--blue); background: var(--blue-dim); color: var(--cyan); }
+  .match-item.matched { border-color: var(--green); background: var(--green-dim); color: var(--green); cursor: default; }
+  .match-item.wrong-match { border-color: var(--red); background: var(--red-dim); color: var(--red); }
+
+  /* TABLES */
+  .data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .data-table th { background: var(--surface2); padding: 10px 14px; text-align: left; font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); border-bottom: 1px solid var(--border); }
+  .data-table td { padding: 10px 14px; border-bottom: 1px solid rgba(48,54,61,0.5); vertical-align: top; }
+  .data-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+  /* MONO */
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  /* TAGS */
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin: 2px; }
+
+  /* GRID COLS */
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  @media (max-width: 768px) { .grid-3 { grid-template-columns: 1fr; } }
+
+  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  @media (max-width: 640px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  /* FLASHCARD */
+  .flashcard-container { perspective: 1000px; }
+  .flashcard {
+    position: relative;
+    height: 180px;
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+    cursor: pointer;
+    border-radius: var(--r2);
+  }
+
+  .flashcard.flipped { transform: rotateY(180deg); }
+  .flashcard-face {
+    position: absolute; inset: 0;
+    border-radius: var(--r2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+    backface-visibility: hidden;
+  }
+
+  .flashcard-front { background: var(--surface); border: 1px solid var(--border); }
+  .flashcard-back { background: var(--blue-dim); border: 1px solid var(--blue); transform: rotateY(180deg); }
+
+  /* NAV PILLS for sub-tabs */
+  .sub-tabs {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+
+  .sub-tab-btn {
+    padding: 7px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--muted);
+    font-family: 'Sora', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.18s;
+  }
+
+  .sub-tab-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+  .sub-tab-btn.active { background: var(--red-dim); border-color: var(--red); color: var(--red); }
+
+  .sub-section { display: none; }
+  .sub-section.active { display: block; animation: fadeIn 0.25s ease; }
+
+  /* CASE SCENARIO */
+  .case-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r2);
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+
+  .case-header {
+    background: linear-gradient(135deg, var(--surface2), var(--surface));
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .case-number {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--red), var(--pink));
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 15px;
+    flex-shrink: 0;
+  }
+
+  .case-body { padding: 20px; }
+
+  .vitals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+    margin: 14px 0;
+  }
+
+  .vital-box {
+    background: var(--surface2);
+    border-radius: var(--r);
+    padding: 10px 14px;
+    text-align: center;
+  }
+
+  .vital-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); }
+  .vital-value { font-size: 20px; font-weight: 800; font-family: 'JetBrains Mono', monospace; }
+  .vital-value.abnormal { color: var(--red); }
+  .vital-value.normal { color: var(--green); }
+  .vital-value.warning { color: var(--orange); }
+
+  /* MEMORY HELPERS */
+  .mnemonic-card {
+    background: linear-gradient(135deg, var(--surface), var(--surface2));
+    border-radius: var(--r2);
+    padding: 20px;
+    border: 1px solid var(--border);
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mnemonic-card::after {
+    content: '';
+    position: absolute;
+    top: -30px; right: -30px;
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    opacity: 0.06;
+  }
+
+  /* RAPID REVIEW */
+  .bullet-list { list-style: none; }
+  .bullet-list li {
+    padding: 7px 0;
+    border-bottom: 1px solid rgba(48,54,61,0.5);
+    font-size: 13.5px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .bullet-list li::before {
+    content: '▸';
+    color: var(--red);
+    font-size: 12px;
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+
+  /* TOOLTIP */
+  .tooltip-wrap { position: relative; display: inline-block; }
+  .tooltip-text {
+    visibility: hidden;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 8px 12px;
+    font-size: 12px;
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    z-index: 10;
+    box-shadow: var(--shadow);
+    color: var(--cyan);
+  }
+
+  .tooltip-wrap:hover .tooltip-text { visibility: visible; }
+
+  .term {
+    border-bottom: 1px dashed var(--muted);
+    cursor: help;
+    color: var(--cyan);
+  }
+
+  /* SCROLLABLE TABLE WRAP */
+  .table-wrap { overflow-x: auto; border-radius: var(--r); }
+
+  /* SECTION SPECIFIC COLORS */
+  h2.red { color: var(--red); }
+  h2.blue { color: var(--cyan); }
+  h2.green { color: var(--green); }
+  h2.orange { color: var(--orange); }
+  h2.purple { color: var(--purple); }
+  h2.pink { color: var(--pink); }
+  h2.yellow { color: var(--yellow); }
+
+  small.muted { color: var(--muted); font-size: 12px; }
+
+  hr.divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+
+  .icon-lg { font-size: 32px; margin-bottom: 8px; }
+  .text-center { text-align: center; }
+
+  /* COMPARE TABLE */
+  .compare-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .compare-table th { background: var(--surface2); padding: 10px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); border: 1px solid var(--border); }
+  .compare-table td { padding: 10px; border: 1px solid var(--border); vertical-align: top; }
+  .compare-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+
+  /* SHOCK MATCH GAME */
+  .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media(max-width:600px) { .match-grid { grid-template-columns: 1fr; } }
+  .match-col { display: flex; flex-direction: column; gap: 8px; }
+
+  .step { display: flex; gap: 14px; margin-bottom: 14px; }
+  .step-num {
+    width: 28px; height: 28px;
+    background: linear-gradient(135deg, var(--red), var(--pink));
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 12px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 480px) {
+    .tab-btn { padding: 8px 10px; font-size: 10px; }
+    .main { padding: 16px 12px 60px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-top">
+    <div class="logo-icon">🫀</div>
+    <div class="header-title">
+      <h1>Cardiovascular NCLEX Interactive Mastery Lab</h1>
+      <p>Clinical reasoning · High-yield content · NCLEX-focused</p>
+    </div>
+  </div>
+  <nav class="tab-nav" id="mainNav">
+    <button class="tab-btn active" data-tab="overview">1 Overview</button>
+    <button class="tab-btn" data-tab="sounds">2 Heart Sounds</button>
+    <button class="tab-btn" data-tab="inflammatory">3 Inflammatory</button>
+    <button class="tab-btn" data-tab="shock">4 Shock</button>
+    <button class="tab-btn" data-tab="meds">5 Medications</button>
+    <button class="tab-btn" data-tab="symptoms">6 Symptoms</button>
+    <button class="tab-btn" data-tab="cases">7 Case Scenarios</button>
+    <button class="tab-btn" data-tab="quiz">8 Quick Quiz</button>
+    <button class="tab-btn" data-tab="memory">9 Memory Helpers</button>
+    <button class="tab-btn" data-tab="review">10 Rapid Review</button>
+  </nav>
+</header>
+
+<main class="main">
+
+<!-- ============================================================ SECTION 1: OVERVIEW -->
+<section id="overview" class="section active">
+  <div class="section-header">
+    <h2 class="red">❤️ Cardiovascular Overview</h2>
+    <p>Understand the fundamentals that drive every cardiovascular NCLEX question</p>
+  </div>
+
+  <div class="alert alert-info">💡 <span>NCLEX tests your ability to <strong>understand why</strong> — not just memorize facts. Always ask: "What's happening to perfusion?"</span></div>
+
+  <div class="dual-col" style="margin-bottom:20px">
+    <div class="card">
+      <div class="card-title">🔬 Medical Explanation</div>
+      <p style="font-size:13.5px;line-height:1.8">The heart is a dual-pump organ maintaining systemic and pulmonary circulation. The right heart receives deoxygenated blood → pumps to lungs. The left heart receives oxygenated blood → pumps to body. Cardiac output = heart rate × stroke volume. Adequate CO ensures organ perfusion.</p>
+    </div>
+    <div class="card highlight-blue">
+      <div class="card-title">🎓 Student-Friendly Version</div>
+      <p style="font-size:13.5px;line-height:1.8">Think of the heart as two pumps working together. The right side sends blood to the lungs to get oxygen. The left side sends the oxygenated blood everywhere else. If the pump fails → not enough blood reaches organs → SYMPTOMS.</p>
+    </div>
+  </div>
+
+  <h3 style="font-size:16px;font-weight:700;margin-bottom:14px;color:var(--cyan)">🔑 The Four Key Concepts</h3>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-title">📥 Preload</div>
+      <div class="badge badge-info" style="margin-bottom:8px">Volume</div>
+      <p style="font-size:13px;line-height:1.7"><strong>Medical:</strong> Volume of blood in ventricles before contraction (end-diastolic volume). Influenced by venous return.<br><br><strong>Simple:</strong> How much blood fills the heart before it squeezes. Too much = overloaded (heart failure). Too little = not enough to pump (hypovolemia).</p>
+      <div class="highlight highlight-blue" style="margin-top:10px;font-size:12.5px">⚡ NCLEX: JVD + pulmonary edema = high preload (CHF). Dehydration = low preload.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">📤 Afterload</div>
+      <div class="badge badge-warning" style="margin-bottom:8px">Resistance</div>
+      <p style="font-size:13px;line-height:1.7"><strong>Medical:</strong> Resistance the ventricle overcomes to eject blood (systemic vascular resistance).<br><br><strong>Simple:</strong> How hard the heart has to push against resistance. High BP = high afterload = heart works harder. Vasodilators reduce afterload → easier for heart to pump.</p>
+      <div class="highlight highlight-orange" style="margin-top:10px;font-size:12.5px">⚡ NCLEX: Hypertension = high afterload → ventricular hypertrophy → diastolic dysfunction.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">💪 Contractility</div>
+      <div class="badge badge-normal" style="margin-bottom:8px">Inotropy</div>
+      <p style="font-size:13px;line-height:1.7"><strong>Medical:</strong> Intrinsic force of myocardial contraction independent of preload/afterload.<br><br><strong>Simple:</strong> The squeezing strength of the heart muscle itself. Weakened in heart failure. Improved by digoxin, dobutamine.</p>
+      <div class="highlight highlight-green" style="margin-top:10px;font-size:12.5px">⚡ NCLEX: Low ejection fraction = poor contractility. Positive inotropes increase it.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">🔄 Cardiac Output</div>
+      <div class="badge badge-info" style="margin-bottom:8px">CO = HR × SV</div>
+      <p style="font-size:13px;line-height:1.7"><strong>Medical:</strong> Volume of blood ejected per minute. Normal: 4–8 L/min. Stroke volume affected by preload, afterload, contractility.<br><br><strong>Simple:</strong> Total blood the heart pumps every minute. Low CO = not enough blood to organs = organ failure signs.</p>
+      <div class="highlight highlight-red" style="margin-top:10px;font-size:12.5px">⚡ NCLEX: Low CO → ↓ urine output, altered LOC, cool clammy skin, hypotension.</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+  <h3 style="font-size:16px;font-weight:700;margin-bottom:14px;color:var(--orange)">🩸 Blood Flow Pathway</h3>
+  <div class="card">
+    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px">
+      <span class="tag" style="background:var(--blue-dim);color:var(--cyan);border:1px solid var(--blue)">Body (deoxygenated)</span>
+      <span>→</span><span class="tag" style="background:var(--surface2);color:var(--muted);border:1px solid var(--border)">R Atrium</span>
+      <span>→</span><span class="tag" style="background:var(--surface2);color:var(--muted);border:1px solid var(--border)">R Ventricle</span>
+      <span>→</span><span class="tag" style="background:var(--purple-dim);color:var(--purple);border:1px solid var(--purple)">Pulmonary Artery → Lungs</span>
+      <span>→</span><span class="tag" style="background:var(--green-dim);color:var(--green);border:1px solid var(--green)">Oxygenated</span>
+      <span>→</span><span class="tag" style="background:var(--surface2);color:var(--muted);border:1px solid var(--border)">L Atrium</span>
+      <span>→</span><span class="tag" style="background:var(--surface2);color:var(--muted);border:1px solid var(--border)">L Ventricle</span>
+      <span>→</span><span class="tag" style="background:var(--red-dim);color:var(--red);border:1px solid var(--red)">Aorta → Body</span>
+    </div>
+  </div>
+
+  <hr class="divider">
+  <h3 style="font-size:16px;font-weight:700;margin-bottom:14px;color:var(--red)">⚠️ When Pumping Fails → Symptoms</h3>
+  <div class="dual-col">
+    <div>
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">Left Heart Failure Symptoms <span class="accordion-arrow">▼</span></div>
+        <div class="accordion-body">
+          <ul class="bullet-list">
+            <li>Dyspnea (difficulty breathing) — fluid backs up into lungs</li>
+            <li>Orthopnea — can't breathe flat (gravity pools fluid into lungs)</li>
+            <li>Crackles / pulmonary edema — fluid in alveoli</li>
+            <li>S3 gallop — sign of volume overload</li>
+            <li>Cough (sometimes frothy pink sputum in severe cases)</li>
+            <li>Fatigue — low cardiac output = poor tissue oxygenation</li>
+          </ul>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">Right Heart Failure Symptoms <span class="accordion-arrow">▼</span></div>
+        <div class="accordion-body">
+          <ul class="bullet-list">
+            <li>JVD — jugular venous distention (pressure backs up into neck veins)</li>
+            <li>Peripheral edema — fluid pools in legs, ankles</li>
+            <li>Hepatomegaly — liver becomes congested</li>
+            <li>Ascites — fluid in abdomen</li>
+            <li>Weight gain — fluid retention</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">Low Cardiac Output Clues <span class="accordion-arrow">▼</span></div>
+        <div class="accordion-body">
+          <ul class="bullet-list">
+            <li>Hypotension — not enough pressure to perfuse organs</li>
+            <li>Tachycardia — compensatory increase in rate</li>
+            <li>Cool, clammy skin — vasoconstriction to protect core organs</li>
+            <li>Altered LOC — brain not getting enough blood</li>
+            <li>Oliguria — kidneys not perfused → &lt;30 mL/hr = alarm</li>
+            <li>Weak peripheral pulses</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card highlight-red" style="margin-top:8px">
+        <div class="card-title">🚨 Priority NCLEX Thought</div>
+        <p style="font-size:13px">Poor perfusion = emergency. Always prioritize airway, breathing, circulation. Urine output &lt;30 mL/hr = report immediately.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ SECTION 2: HEART SOUNDS -->
+<section id="sounds" class="section">
+  <div class="section-header">
+    <h2 class="blue">🎵 Heart Sounds</h2>
+    <p>Click each sound card to explore clinical significance. Master the sounds, master the NCLEX.</p>
+  </div>
+
+  <div class="alert alert-warning">🎯 <span><strong>NCLEX Strategy:</strong> Know S3 = fluid overload (HF). S4 = stiff ventricle (HTN/hypertrophy). Muffled = tamponade. Rub = pericarditis.</span></div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-bottom:24px" id="soundCards">
+
+    <div class="sound-card s1" onclick="showSoundDetail('s1')">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div>
+          <div class="badge badge-normal" style="margin-bottom:8px">NORMAL</div>
+          <div class="card-title" style="font-size:18px;font-weight:800">S1 — "Lubb"</div>
+          <p style="font-size:13px;color:var(--muted)">AV Valve Closure</p>
+        </div>
+        <span style="font-size:32px">🟢</span>
+      </div>
+      <p style="font-size:13px;margin-top:10px">Beginning of systole. Heard best at apex. Mitral + tricuspid valves close.</p>
+      <div style="margin-top:10px;color:var(--green);font-size:12px;font-weight:600">Click for full details →</div>
+    </div>
+
+    <div class="sound-card s2" onclick="showSoundDetail('s2')">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div>
+          <div class="badge badge-normal" style="margin-bottom:8px">NORMAL</div>
+          <div class="card-title" style="font-size:18px;font-weight:800">S2 — "Dubb"</div>
+          <p style="font-size:13px;color:var(--muted)">Semilunar Valve Closure</p>
+        </div>
+        <span style="font-size:32px">🔵</span>
+      </div>
+      <p style="font-size:13px;margin-top:10px">End of systole. Aortic + pulmonic valves close. Heard best at base.</p>
+      <div style="margin-top:10px;color:var(--cyan);font-size:12px;font-weight:600">Click for full details →</div>
+    </div>
+
+    <div class="sound-card s3" onclick="showSoundDetail('s3')">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div>
+          <div class="badge badge-warning" style="margin-bottom:8px">ABNORMAL*</div>
+          <div class="card-title" style="font-size:18px;font-weight:800">S3 — Gallop</div>
+          <p style="font-size:13px;color:var(--muted)">Ventricular Gallop</p>
+        </div>
+        <span style="font-size:32px">🟠</span>
+      </div>
+      <p style="font-size:13px;margin-top:10px">Early diastole. "Ken-tuc-ky" rhythm. Fluid rushing into flabby ventricle.</p>
+      <div style="margin-top:10px;color:var(--orange);font-size:12px;font-weight:600">Click for full details →</div>
+    </div>
+
+    <div class="sound-card s4" onclick="showSoundDetail('s4')">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div>
+          <div class="badge badge-abnormal" style="margin-bottom:8px">ABNORMAL</div>
+          <div class="card-title" style="font-size:18px;font-weight:800">S4 — Gallop</div>
+          <p style="font-size:13px;color:var(--muted)">Atrial Gallop</p>
+        </div>
+        <span style="font-size:32px">🔴</span>
+      </div>
+      <p style="font-size:13px;margin-top:10px">Late diastole. "Ten-nes-see" rhythm. Stiff ventricle resists filling.</p>
+      <div style="margin-top:10px;color:var(--red);font-size:12px;font-weight:600">Click for full details →</div>
+    </div>
+
+    <div class="sound-card murmur" onclick="showSoundDetail('murmur')">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div>
+          <div class="badge badge-abnormal" style="margin-bottom:8px">ABNORMAL</div>
+          <div class="card-title" style="font-size:18px;font-weight:800">Murmur</div>
+          <p style="font-size:13px;color:var(--muted)">Turbulent Blood Flow</p>
+        </div>
+        <span style="font-size:32px">🟣</span>
+      </div>
+      <p style="font-size:13px;margin-top:10px">Whooshing/swishing sound from turbulent flow through valves.</p>
+      <div style="margin-top:10px;color:var(--purple);font-size:12px;font-weight:600">Click for full details →</div>
+    </div>
+
+    <div class="sound-card muffled" onclick="showSoundDetail('muffled')">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div>
+          <div class="badge badge-emergency" style="margin-bottom:8px">🚨 EMERGENCY</div>
+          <div class="card-title" style="font-size:18px;font-weight:800">Muffled Sounds</div>
+          <p style="font-size:13px;color:var(--muted)">Cardiac Tamponade Signal</p>
+        </div>
+        <span style="font-size:32px">⚫</span>
+      </div>
+      <p style="font-size:13px;margin-top:10px">Distant, muffled heart sounds = fluid around heart dampening sounds.</p>
+      <div style="margin-top:10px;color:var(--muted);font-size:12px;font-weight:600">Click for full details →</div>
+    </div>
+
+    <div class="sound-card rub" onclick="showSoundDetail('rub')">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div>
+          <div class="badge badge-abnormal" style="margin-bottom:8px">ABNORMAL</div>
+          <div class="card-title" style="font-size:18px;font-weight:800">Friction Rub</div>
+          <p style="font-size:13px;color:var(--muted)">Pericarditis Sign</p>
+        </div>
+        <span style="font-size:32px">🩷</span>
+      </div>
+      <p style="font-size:13px;margin-top:10px">Scratchy, leathery sound. Inflamed pericardial layers rubbing together.</p>
+      <div style="margin-top:10px;color:var(--pink);font-size:12px;font-weight:600">Click for full details →</div>
+    </div>
+
+  </div>
+
+  <!-- Sound Detail Panel -->
+  <div id="soundDetail" style="display:none;" class="card" style="margin-top:20px">
+    <div id="soundDetailContent"></div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- Interpret the Clue Activity -->
+  <h3 style="font-size:16px;font-weight:700;margin-bottom:14px;color:var(--pink)">🎮 Interpret the Clue Activity</h3>
+  <p style="font-size:13.5px;color:var(--muted);margin-bottom:16px">You hear a finding. What does it most likely indicate? Choose the best answer.</p>
+
+  <div id="soundActivity"></div>
+</section>
+
+<!-- ============================================================ SECTION 3: INFLAMMATORY -->
+<section id="inflammatory" class="section">
+  <div class="section-header">
+    <h2 class="orange">🔥 Inflammatory Cardiac Disorders</h2>
+    <p>Endocarditis · Myocarditis · Pericarditis · Effusion · Tamponade</p>
+  </div>
+
+  <div class="sub-tabs" id="inflammatoryTabs">
+    <button class="sub-tab-btn active" data-subtab="endocarditis" onclick="switchSubTab(this,'inflammatory')">Endocarditis</button>
+    <button class="sub-tab-btn" data-subtab="myocarditis" onclick="switchSubTab(this,'inflammatory')">Myocarditis</button>
+    <button class="sub-tab-btn" data-subtab="pericarditis" onclick="switchSubTab(this,'inflammatory')">Pericarditis</button>
+    <button class="sub-tab-btn" data-subtab="effusion" onclick="switchSubTab(this,'inflammatory')">Pericardial Effusion</button>
+    <button class="sub-tab-btn" data-subtab="tamponade" onclick="switchSubTab(this,'inflammatory')">Cardiac Tamponade</button>
+    <button class="sub-tab-btn" data-subtab="compare-inf" onclick="switchSubTab(this,'inflammatory')">📊 Compare All</button>
+  </div>
+
+  <div id="sub-endocarditis" class="sub-section active">
+    <div class="alert alert-warning">💊 <span>Endocarditis = infection of inner heart lining/valves. Think: IV drug users, prosthetic valves, dental procedures.</span></div>
+    <div class="dual-col">
+      <div>
+        <div class="card">
+          <div class="card-title">🦠 What It Is</div>
+          <p style="font-size:13.5px;line-height:1.7">Infection of the <strong>endocardium</strong> — the inner lining of the heart and heart valves. Bacteria (usually Staphylococcus or Streptococcus) adhere to damaged valves and form <em>vegetations</em> (clumps of bacteria + fibrin).</p>
+          <div class="highlight highlight-orange" style="margin-top:12px;font-size:13px">
+            <strong>Part affected:</strong> Inner heart lining / valves<br>
+            <strong>Most common valve:</strong> Mitral (left-sided)
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">📋 Key Signs & Symptoms</div>
+          <ul class="bullet-list">
+            <li><strong>Fever</strong> — bacterial infection</li>
+            <li><strong>New or changing murmur</strong> — vegetation on valve</li>
+            <li><strong>Chills, fatigue, malaise</strong></li>
+            <li><strong>Janeway lesions</strong> — painless red spots on palms/soles</li>
+            <li><strong>Osler nodes</strong> — painful nodules on fingers/toes</li>
+            <li><strong>Roth spots</strong> — retinal hemorrhages</li>
+            <li><strong>Splinter hemorrhages</strong> — under fingernails</li>
+            <li><strong>Embolic events</strong> — stroke, pulmonary emboli</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="card highlight-red">
+          <div class="card-title">🚨 NCLEX Red Flags</div>
+          <ul class="bullet-list">
+            <li>New murmur + fever = think endocarditis until proven otherwise</li>
+            <li>Stroke in young patient with fever = embolic event</li>
+            <li>IV drug user + fever + murmur = classic presentation</li>
+            <li>Any embolic complication = emergency</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">🔬 Diagnostics & Interventions</div>
+          <ul class="bullet-list">
+            <li><strong>Blood cultures x3</strong> — BEFORE antibiotics (critical!)</li>
+            <li>Echocardiogram — visualize vegetations</li>
+            <li>IV antibiotics 4–6 weeks</li>
+            <li>Monitor for embolic events</li>
+            <li>Surgery if valve severely damaged</li>
+            <li>Prophylactic antibiotics before dental procedures in high-risk patients</li>
+          </ul>
+        </div>
+        <div class="card highlight-blue">
+          <div class="card-title">📚 Risk Factors</div>
+          <p style="font-size:13px">IV drug use · Prosthetic heart valves · Prior endocarditis · Congenital heart defects · Poor dental hygiene · Central venous catheters</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-myocarditis" class="sub-section">
+    <div class="alert alert-info">ℹ️ <span>Myocarditis = inflammation of the heart muscle itself. Often viral. Can progress to cardiomyopathy.</span></div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-title">💔 What It Is</div>
+        <p style="font-size:13.5px;line-height:1.7">Inflammation of the <strong>myocardium</strong> (heart muscle). Usually caused by viral infection (Coxsackievirus B most common). Immune response damages cardiac cells → weakened pumping → possible heart failure.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">📋 Symptoms</div>
+        <ul class="bullet-list">
+          <li>Chest pain (may mimic MI)</li>
+          <li>Fatigue, dyspnea</li>
+          <li>Fever, flu-like symptoms</li>
+          <li>Palpitations / arrhythmias</li>
+          <li>Signs of heart failure if severe</li>
+        </ul>
+      </div>
+      <div class="card highlight-orange">
+        <div class="card-title">🔬 Key Diagnostics</div>
+        <ul class="bullet-list">
+          <li>ECG — diffuse ST changes</li>
+          <li>Troponin — elevated (myocyte damage)</li>
+          <li>Echocardiogram — reduced ejection fraction</li>
+          <li>Cardiac MRI — gold standard</li>
+          <li>Endomyocardial biopsy — definitive</li>
+        </ul>
+      </div>
+      <div class="card highlight-red">
+        <div class="card-title">🚨 Priority Interventions</div>
+        <ul class="bullet-list">
+          <li>Bed rest — decreases cardiac workload</li>
+          <li>Treat underlying cause</li>
+          <li>Heart failure management if needed</li>
+          <li>Monitor for arrhythmias</li>
+          <li>NSAIDs — may worsen, avoid in acute phase</li>
+          <li>No strenuous activity during acute illness</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-pericarditis" class="sub-section">
+    <div class="alert alert-warning">🎯 <span><strong>Pericarditis signature:</strong> Sharp chest pain — WORSE lying flat, BETTER leaning forward. Friction rub on auscultation.</span></div>
+    <div class="dual-col">
+      <div>
+        <div class="card">
+          <div class="card-title">📖 What It Is</div>
+          <p style="font-size:13.5px;line-height:1.7">Inflammation of the <strong>pericardium</strong> — the fibrous sac surrounding the heart. The two inflamed layers rub together creating a friction rub. Can be viral, post-MI, autoimmune, or uremic.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">📋 Classic Presentation</div>
+          <ul class="bullet-list">
+            <li>Sharp, pleuritic chest pain</li>
+            <li>Worse with inspiration and lying flat</li>
+            <li>Relieved by sitting up and leaning forward</li>
+            <li>Pericardial friction rub (scratchy, leathery)</li>
+            <li>Fever</li>
+            <li>Dyspnea</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="card highlight-blue">
+          <div class="card-title">🔬 ECG Finding</div>
+          <p style="font-size:13.5px">Diffuse <strong>saddle-shaped ST elevation</strong> in multiple leads (not localized like MI). PR depression is another hallmark.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">💊 Treatment</div>
+          <ul class="bullet-list">
+            <li>NSAIDs — first-line for pain</li>
+            <li>Colchicine — reduces recurrence</li>
+            <li>Corticosteroids — if not responding</li>
+            <li>Restrict activity during acute phase</li>
+            <li>Monitor for effusion/tamponade development</li>
+          </ul>
+        </div>
+        <div class="card highlight-red">
+          <div class="card-title">🚨 Complication Alert</div>
+          <p style="font-size:13.5px">If effusion develops → fluid accumulates → may progress to <strong>cardiac tamponade</strong>. Watch for: hypotension, JVD, muffled sounds (Beck's Triad).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-effusion" class="sub-section">
+    <div class="alert alert-info">💧 <span>Pericardial effusion = fluid accumulating in the pericardial sac. Amount and speed of accumulation determines severity.</span></div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-title">📖 Definition</div>
+        <p style="font-size:13.5px;line-height:1.7">Abnormal accumulation of fluid in the <strong>pericardial space</strong> (normally &lt;50 mL). Can be serous, blood, or pus. Slow accumulation may be tolerated; rapid accumulation → tamponade.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">📋 Signs</div>
+        <ul class="bullet-list">
+          <li>May be asymptomatic if slow accumulation</li>
+          <li>Dyspnea</li>
+          <li>Dull chest pain or pressure</li>
+          <li>Enlarged cardiac silhouette on CXR ("water bottle" shape)</li>
+          <li>Decreased heart sounds if significant</li>
+        </ul>
+      </div>
+      <div class="card highlight-orange">
+        <div class="card-title">⚠️ Key Point</div>
+        <p style="font-size:13.5px">Rapid accumulation of even a small amount of fluid can cause more hemodynamic compromise than a large slow effusion. The <strong>pericardium cannot stretch quickly.</strong></p>
+      </div>
+      <div class="card">
+        <div class="card-title">🔧 Intervention</div>
+        <ul class="bullet-list">
+          <li>Small: treat underlying cause</li>
+          <li>Large/symptomatic: pericardiocentesis</li>
+          <li>Monitor closely for tamponade signs</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-tamponade" class="sub-section">
+    <div class="alert alert-emergency">🚨 <span><strong>CARDIAC TAMPONADE = LIFE-THREATENING EMERGENCY.</strong> Beck's Triad: Hypotension + JVD + Muffled Heart Sounds</span></div>
+
+    <div class="card highlight-red" style="margin-bottom:20px">
+      <div class="card-title" style="font-size:18px">⚡ Beck's Triad — MEMORIZE THIS</div>
+      <div class="grid-3" style="margin-top:14px">
+        <div class="text-center" style="padding:14px;background:rgba(255,71,87,0.1);border-radius:var(--r)">
+          <div style="font-size:28px;margin-bottom:6px">📉</div>
+          <div style="font-weight:700;font-size:14px;color:var(--red)">Hypotension</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px">Can't eject blood (compressed)</div>
+        </div>
+        <div class="text-center" style="padding:14px;background:rgba(255,71,87,0.1);border-radius:var(--r)">
+          <div style="font-size:28px;margin-bottom:6px">🫀</div>
+          <div style="font-weight:700;font-size:14px;color:var(--red)">JVD</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px">Venous blood backs up into neck</div>
+        </div>
+        <div class="text-center" style="padding:14px;background:rgba(255,71,87,0.1);border-radius:var(--r)">
+          <div style="font-size:28px;margin-bottom:6px">🔇</div>
+          <div style="font-weight:700;font-size:14px;color:var(--red)">Muffled Sounds</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px">Fluid dampens heart sounds</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dual-col">
+      <div>
+        <div class="card">
+          <div class="card-title">🔬 Pathophysiology</div>
+          <p style="font-size:13.5px;line-height:1.7">Fluid compresses heart chambers → ventricular filling impaired → stroke volume falls → cardiac output drops → cardiogenic/obstructive shock. Pulsus paradoxus (BP drops &gt;10 mmHg with inspiration) is a key finding.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">📋 Additional Signs</div>
+          <ul class="bullet-list">
+            <li>Narrowed pulse pressure</li>
+            <li>Pulsus paradoxus &gt;10 mmHg</li>
+            <li>Tachycardia (compensatory)</li>
+            <li>Anxiety, restlessness</li>
+            <li>Obstructive shock pattern</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="card highlight-red">
+          <div class="card-title">🚨 Emergency Actions</div>
+          <div class="step"><div class="step-num">1</div><div><strong>Call physician IMMEDIATELY</strong></div></div>
+          <div class="step"><div class="step-num">2</div><div><strong>Prepare for pericardiocentesis</strong> — needle drainage of fluid</div></div>
+          <div class="step"><div class="step-num">3</div><div>IV fluids to temporarily maintain BP (volume challenge)</div></div>
+          <div class="step"><div class="step-num">4</div><div>O₂ supplementation</div></div>
+          <div class="step"><div class="step-num">5</div><div>Continuous cardiac monitoring</div></div>
+          <div class="step"><div class="step-num">6</div><div>Possible emergency surgery (pericardiectomy)</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-compare-inf" class="sub-section">
+    <h3 style="font-size:16px;font-weight:700;margin-bottom:14px">📊 Compare Inflammatory Disorders</h3>
+    <div class="table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Endocarditis</th>
+            <th>Myocarditis</th>
+            <th>Pericarditis</th>
+            <th>Tamponade</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Affected Area</strong></td>
+            <td>Inner lining/valves</td>
+            <td>Heart muscle</td>
+            <td>Pericardial sac</td>
+            <td>Pericardial space (fluid)</td>
+          </tr>
+          <tr>
+            <td><strong>Key Pain</strong></td>
+            <td>Variable</td>
+            <td>Chest pain (MI-like)</td>
+            <td>Sharp, pleuritic ↑ lying flat</td>
+            <td>Pressure/dull if any</td>
+          </tr>
+          <tr>
+            <td><strong>Hallmark Sign</strong></td>
+            <td>Fever + new murmur</td>
+            <td>Troponin ↑, EF ↓</td>
+            <td>Friction rub</td>
+            <td>Beck's Triad</td>
+          </tr>
+          <tr>
+            <td><strong>Priority Action</strong></td>
+            <td>Blood cultures → IV antibiotics</td>
+            <td>Bed rest, monitor</td>
+            <td>NSAIDs, positioning</td>
+            <td>Pericardiocentesis 🚨</td>
+          </tr>
+          <tr>
+            <td><strong>Emergency Level</strong></td>
+            <td><span class="badge badge-warning">Urgent</span></td>
+            <td><span class="badge badge-warning">Urgent</span></td>
+            <td><span class="badge badge-info">Moderate</span></td>
+            <td><span class="badge badge-emergency">🚨 Life-Threatening</span></td>
+          </tr>
+          <tr>
+            <td><strong>Embolic Risk</strong></td>
+            <td style="color:var(--red)">HIGH</td>
+            <td>Low</td>
+            <td>Low</td>
+            <td>Low (shock risk)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ SECTION 4: SHOCK -->
+<section id="shock" class="section">
+  <div class="section-header">
+    <h2 class="red">⚡ Shock & Hemodynamics</h2>
+    <p>Perfusion failure — understanding the WHY behind shock presentation</p>
+  </div>
+
+  <div class="alert alert-emergency">🚨 <span><strong>All shock = inadequate tissue perfusion.</strong> The type determines the cause and the intervention. Cool clammy skin ≠ all shock types!</span></div>
+
+  <div class="sub-tabs">
+    <button class="sub-tab-btn active" onclick="switchSubTab(this,'shock')" data-subtab="cardiogenic">Cardiogenic</button>
+    <button class="sub-tab-btn" onclick="switchSubTab(this,'shock')" data-subtab="obstructive">Obstructive</button>
+    <button class="sub-tab-btn" onclick="switchSubTab(this,'shock')" data-subtab="hypovolemic">Hypovolemic</button>
+    <button class="sub-tab-btn" onclick="switchSubTab(this,'shock')" data-subtab="distributive">Septic/Anaphylactic</button>
+    <button class="sub-tab-btn" onclick="switchSubTab(this,'shock')" data-subtab="hemo-basics">Hemodynamics</button>
+    <button class="sub-tab-btn" onclick="switchSubTab(this,'shock')" data-subtab="shock-game">🎮 Shock Match Game</button>
+  </div>
+
+  <div id="sub-cardiogenic" class="sub-section active">
+    <div class="alert alert-emergency">💔 <span><strong>Cardiogenic Shock:</strong> Pump failure. Heart can't generate enough output. Most common cause: massive MI.</span></div>
+    <div class="dual-col">
+      <div>
+        <div class="card">
+          <div class="card-title">🔬 Pathophysiology</div>
+          <p style="font-size:13.5px;line-height:1.7">Heart muscle damaged/weakened → contractility ↓ → CO ↓ → tissues not perfused → compensatory vasoconstriction → more afterload → worsening failure. Pulmonary congestion accumulates as fluid backs up.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">📋 Key Signs</div>
+          <ul class="bullet-list">
+            <li><strong>Hypotension</strong> — systolic &lt;90 mmHg</li>
+            <li><strong>Cool, clammy skin</strong> — vasoconstriction</li>
+            <li><strong>Tachycardia</strong> — compensatory</li>
+            <li><strong>Crackles</strong> — pulmonary congestion</li>
+            <li><strong>Oliguria</strong> — kidney not perfused</li>
+            <li><strong>Altered LOC</strong> — brain not perfused</li>
+            <li><strong>JVD</strong> — fluid backing up</li>
+            <li><strong>S3 gallop</strong></li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="card highlight-red">
+          <div class="card-title">🚨 Priority Nursing Actions</div>
+          <div class="step"><div class="step-num">1</div><div>Notify physician STAT</div></div>
+          <div class="step"><div class="step-num">2</div><div>Position: semi-Fowler's (HOB 30–45° for breathing)</div></div>
+          <div class="step"><div class="step-num">3</div><div>O₂ supplementation / prepare for intubation</div></div>
+          <div class="step"><div class="step-num">4</div><div>IV access — vasopressors (norepinephrine, dopamine)</div></div>
+          <div class="step"><div class="step-num">5</div><div>Positive inotropes (dobutamine)</div></div>
+          <div class="step"><div class="step-num">6</div><div>Continuous cardiac monitoring</div></div>
+          <div class="step"><div class="step-num">7</div><div>Foley catheter — monitor urine output hourly</div></div>
+          <div class="step"><div class="step-num">8</div><div>Possible IABP (intra-aortic balloon pump)</div></div>
+        </div>
+        <div class="highlight highlight-orange" style="font-size:13px">
+          ⚠️ <strong>Avoid:</strong> Large fluid boluses (worsens pulmonary congestion in cardiogenic shock). Treat the pump failure, not the volume.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-obstructive" class="sub-section">
+    <div class="alert alert-emergency">🚧 <span><strong>Obstructive Shock:</strong> Physical blockage prevents heart from filling or ejecting. Tamponade is the classic NCLEX example.</span></div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-title">🔬 Causes</div>
+        <ul class="bullet-list">
+          <li>Cardiac tamponade (most NCLEX-tested)</li>
+          <li>Tension pneumothorax</li>
+          <li>Massive pulmonary embolism</li>
+          <li>Severe aortic stenosis</li>
+        </ul>
+      </div>
+      <div class="card highlight-red">
+        <div class="card-title">📋 Signs</div>
+        <ul class="bullet-list">
+          <li>Hypotension</li>
+          <li>JVD (elevated filling pressures)</li>
+          <li>Muffled heart sounds (tamponade)</li>
+          <li>Tachycardia</li>
+          <li>Narrowed pulse pressure</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">🔧 Priority</div>
+        <p style="font-size:13.5px">Remove the obstruction. For tamponade: <strong>pericardiocentesis</strong>. For tension pneumo: <strong>needle decompression</strong>. For PE: <strong>thrombolytics or embolectomy</strong>.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-hypovolemic" class="sub-section">
+    <div class="alert alert-info">💧 <span><strong>Hypovolemic Shock:</strong> Loss of circulating volume. Not enough fluid to fill the pump. Most common: hemorrhage.</span></div>
+    <div class="dual-col">
+      <div>
+        <div class="card">
+          <div class="card-title">📋 Signs & Progression</div>
+          <ul class="bullet-list">
+            <li>Tachycardia (early, compensatory)</li>
+            <li>Hypotension (late sign — volume lost)</li>
+            <li>Cool, pale skin</li>
+            <li>Decreased urine output</li>
+            <li>Flat neck veins (low preload)</li>
+            <li>Altered mental status</li>
+            <li>Increased thirst</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="card highlight-green">
+          <div class="card-title">🔧 Priority Interventions</div>
+          <ul class="bullet-list">
+            <li>Stop the bleeding / treat cause</li>
+            <li>IV fluid resuscitation (NS or LR)</li>
+            <li>Blood transfusion if hemorrhagic</li>
+            <li>Trendelenburg position (controversial but used)</li>
+            <li>Monitor urine output &gt;30 mL/hr</li>
+            <li>Large-bore IV access x2</li>
+          </ul>
+        </div>
+        <div class="highlight highlight-blue" style="font-size:13px">
+          💡 <strong>Key Difference:</strong> Hypovolemic = flat neck veins. Cardiogenic = JVD. This distinguishes them on NCLEX!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-distributive" class="sub-section">
+    <div class="alert alert-info">🌡️ <span>Distributive shock = blood vessels dilate abnormally → blood "pools" → perfusion failure despite normal or high volume</span></div>
+    <div class="dual-col">
+      <div>
+        <div class="card">
+          <div class="card-title">🔥 Septic Shock</div>
+          <div class="badge badge-abnormal" style="margin-bottom:8px">Vasodilatory</div>
+          <ul class="bullet-list">
+            <li>Cause: overwhelming infection → inflammatory response → massive vasodilation</li>
+            <li>Skin: <strong>warm, flushed</strong> (early) → cool, clammy (late)</li>
+            <li>High fever → hypothermia late</li>
+            <li>HR ↑, BP ↓</li>
+            <li>↑ Lactate, ↓ urine output</li>
+            <li>Priority: <strong>IV antibiotics within 1 hour</strong>, fluid bolus, vasopressors</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="card-title">🐝 Anaphylactic Shock</div>
+          <div class="badge badge-emergency" style="margin-bottom:8px">Severe Allergic</div>
+          <ul class="bullet-list">
+            <li>Cause: massive histamine release → vasodilation + bronchospasm</li>
+            <li>Urticaria, angioedema</li>
+            <li>Bronchospasm → stridor, wheezing</li>
+            <li>Hypotension, tachycardia</li>
+            <li>Warm skin initially</li>
+            <li>Priority: <strong>Epinephrine 1:1000 IM FIRST</strong></li>
+          </ul>
+        </div>
+        <div class="card highlight-red" style="margin-top:14px">
+          <div class="card-title">🚨 NCLEX: First Action</div>
+          <p style="font-size:13.5px">Anaphylaxis → <strong>Epinephrine IM</strong> is the priority intervention. NOT Benadryl. NOT steroids. Epi FIRST.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-hemo-basics" class="sub-section">
+    <h3 style="font-size:16px;font-weight:700;margin-bottom:14px;color:var(--cyan)">🔬 Hemodynamic Concepts Simplified</h3>
+    <div class="card-grid">
+      <div class="card highlight-blue">
+        <div class="card-title">📥 Preload</div>
+        <p style="font-size:13px"><strong>Medical:</strong> End-diastolic volume<br><strong>Simple:</strong> Blood filling the heart before squeeze<br><strong>High preload:</strong> CHF, fluid overload → JVD, edema<br><strong>Low preload:</strong> Hypovolemia → flat veins, low BP</p>
+      </div>
+      <div class="card highlight-orange">
+        <div class="card-title">📤 Afterload</div>
+        <p style="font-size:13px"><strong>Medical:</strong> Systemic vascular resistance<br><strong>Simple:</strong> Resistance heart pushes against<br><strong>↑ Afterload:</strong> Hypertension (harder to pump)<br><strong>↓ Afterload:</strong> Vasodilators (easier to pump)</p>
+      </div>
+      <div class="card highlight-green">
+        <div class="card-title">💪 Contractility</div>
+        <p style="font-size:13px"><strong>Medical:</strong> Intrinsic myocardial force<br><strong>Simple:</strong> Squeezing strength<br><strong>↑ by:</strong> Dobutamine, digoxin, dopamine (high dose)<br><strong>↓ in:</strong> Heart failure, MI, myocarditis</p>
+      </div>
+      <div class="card highlight-purple">
+        <div class="card-title">🔄 Cardiac Output</div>
+        <p style="font-size:13px"><strong>Formula:</strong> CO = HR × SV<br><strong>Normal:</strong> 4–8 L/min<br><strong>Low CO signs:</strong> hypotension, oliguria, altered LOC, cool skin<br><strong>Goal:</strong> Adequate tissue perfusion</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-shock-game" class="sub-section">
+    <h3 style="font-size:16px;font-weight:700;margin-bottom:6px;color:var(--pink)">🎮 Match the Shock Clue</h3>
+    <p style="font-size:13.5px;color:var(--muted);margin-bottom:20px">Click a clue on the left, then click the matching shock type on the right.</p>
+    <div id="shockMatchGame"></div>
+    <div id="shockMatchFeedback" style="margin-top:14px"></div>
+    <button class="btn btn-secondary" style="margin-top:14px" onclick="initShockGame()">🔄 Reset Game</button>
+  </div>
+</section>
+
+<!-- ============================================================ SECTION 5: MEDICATIONS -->
+<section id="meds" class="section">
+  <div class="section-header">
+    <h2 class="purple">💊 Cardiovascular Medications</h2>
+    <p>Safety, monitoring, side effects — what NCLEX tests most</p>
+  </div>
+
+  <div class="sub-tabs" id="medTabs" style="flex-wrap:wrap">
+    <button class="sub-tab-btn active" onclick="switchSubTab(this,'meds')" data-subtab="ace-arb">ACE/ARB</button>
+    <button class="sub-tab-btn" onclick="switchSubTab(this,'meds')" data-subtab="bb">Beta Blockers</button>
+    <button class="sub-tab-btn" onclick="switchSubTab(this,'meds')" data-subtab="ccb">CCB</button>
+    <button class="sub-tab-btn" onclick="switchSubTab(this,'meds')" data-subtab="diuretics">Diuretics</button>
+    <button class="sub-tab-btn" onclick="switchSubTab(this,'meds')" data-subtab="nitrates">Nitrates</button>
+    <button class="sub-tab-btn" onclick="switchSubTab(this,'meds')" data-subtab="inotropes">Inotropes/Pressors</button>
+    <button class="sub-tab-btn" onclick="switchSubTab(this,'meds')" data-subtab="anticoag">Anticoagulants</button>
+    <button class="sub-tab-btn" onclick="switchSubTab(this,'meds')" data-subtab="thrombo">Thrombolytics</button>
+    <button class="sub-tab-btn" onclick="switchSubTab(this,'meds')" data-subtab="med-challenge">🎮 Safety Challenge</button>
+  </div>
+
+  <div id="sub-ace-arb" class="sub-section active">
+    <div class="dual-col">
+      <div>
+        <div class="card">
+          <div class="card-title" style="color:var(--cyan)">ACE Inhibitors</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:10px">Examples: lisinopril, enalapril, captopril (-pril suffix)</div>
+          <ul class="bullet-list">
+            <li><strong>Mechanism:</strong> Block conversion of angiotensin I→II → vasodilation, ↓ aldosterone → lower BP</li>
+            <li><strong>Uses:</strong> HTN, heart failure, post-MI, diabetes with proteinuria</li>
+            <li><strong>Key SE:</strong> <span style="color:var(--red)">Dry cough</span> (most common), hyperkalemia, angioedema</li>
+            <li><strong>Dangerous:</strong> Angioedema (laryngeal edema = airway emergency)</li>
+            <li><strong>Monitor:</strong> BP, K+, creatinine (kidney function)</li>
+            <li><strong>Avoid:</strong> Pregnancy (teratogenic), bilateral renal artery stenosis</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="card-title" style="color:var(--purple)">ARBs (Angiotensin Receptor Blockers)</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:10px">Examples: losartan, valsartan (-sartan suffix)</div>
+          <ul class="bullet-list">
+            <li><strong>Mechanism:</strong> Block angiotensin II receptors → similar effect to ACE-I without ACE pathway</li>
+            <li><strong>Uses:</strong> Same as ACE-I; used when patient can't tolerate ACE-I cough</li>
+            <li><strong>Key SE:</strong> Hyperkalemia, dizziness, angioedema (rare)</li>
+            <li><strong>Advantage over ACE-I:</strong> No cough</li>
+            <li><strong>Monitor:</strong> BP, K+, creatinine</li>
+            <li><strong>Avoid:</strong> Pregnancy</li>
+          </ul>
+        </div>
+        <div class="card highlight-red" style="margin-top:14px">
+          <div class="card-title">🚨 NCLEX Alert: Angioedema</div>
+          <p style="font-size:13px">If patient reports swelling of lips, tongue, throat after starting ACE inhibitor → STOP medication immediately → this is a medical emergency (airway risk).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-bb" class="sub-section">
+    <div class="alert alert-warning">⚠️ <span>Beta Blockers: <strong>Check pulse before giving</strong>. Hold if HR &lt;60 bpm. Can MASK signs of hypoglycemia.</span></div>
+    <div class="dual-col">
+      <div>
+        <div class="card">
+          <div class="card-title">Beta Blockers Overview</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:10px">Examples: metoprolol, carvedilol, atenolol (-olol suffix)</div>
+          <ul class="bullet-list">
+            <li><strong>Mechanism:</strong> Block β-adrenergic receptors → ↓ HR, ↓ contractility, ↓ BP</li>
+            <li><strong>Uses:</strong> HTN, heart failure, angina, post-MI, arrhythmias</li>
+            <li><strong>SE:</strong> Bradycardia, hypotension, fatigue, cold extremities, sexual dysfunction</li>
+            <li><strong>Dangerous:</strong> Masking of hypoglycemia (no tachycardia signal)</li>
+            <li><strong>Don't stop abruptly</strong> — can cause rebound angina/hypertension</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="card highlight-red">
+          <div class="card-title">🚨 Contraindications</div>
+          <ul class="bullet-list">
+            <li>Severe bradycardia</li>
+            <li>Heart block (2nd/3rd degree)</li>
+            <li>Decompensated heart failure (acute)</li>
+            <li>Severe asthma/COPD (non-selective BB)</li>
+          </ul>
+        </div>
+        <div class="card" style="margin-top:14px">
+          <div class="card-title">📚 Patient Teaching</div>
+          <ul class="bullet-list">
+            <li>Check your pulse before taking</li>
+            <li>Don't stop taking suddenly</li>
+            <li>Rise slowly (orthostatic hypotension)</li>
+            <li>Monitor blood sugar more closely if diabetic</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-ccb" class="sub-section">
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-title">Calcium Channel Blockers</div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:10px">DHP: amlodipine, nifedipine | Non-DHP: diltiazem, verapamil</div>
+        <ul class="bullet-list">
+          <li><strong>Mechanism:</strong> Block Ca²⁺ channels in vascular smooth muscle → vasodilation</li>
+          <li>Non-DHP also slow AV conduction</li>
+          <li><strong>Uses:</strong> HTN, angina, arrhythmias (non-DHP)</li>
+          <li><strong>SE:</strong> Peripheral edema, flushing, headache, constipation (verapamil)</li>
+        </ul>
+      </div>
+      <div class="card highlight-red">
+        <div class="card-title">🚨 Key Cautions</div>
+        <ul class="bullet-list">
+          <li>Verapamil + Beta Blocker combo → severe bradycardia/heart block</li>
+          <li>Grapefruit juice ↑ levels of some CCBs</li>
+          <li>Monitor for peripheral edema</li>
+          <li>Non-DHP: avoid in heart failure, heart block</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">📚 Teaching Points</div>
+        <ul class="bullet-list">
+          <li>Avoid grapefruit juice</li>
+          <li>Rise slowly</li>
+          <li>Monitor BP</li>
+          <li>Report chest pain, palpitations</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-diuretics" class="sub-section">
+    <div class="dual-col">
+      <div>
+        <div class="card">
+          <div class="card-title">💧 Loop Diuretics</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:10px">Furosemide (Lasix), bumetanide, torsemide</div>
+          <ul class="bullet-list">
+            <li><strong>Mechanism:</strong> Block Na-K-2Cl transporter in loop of Henle → massive diuresis</li>
+            <li><strong>Uses:</strong> Heart failure (pulmonary edema), edema, HTN</li>
+            <li><strong>SE:</strong> <span style="color:var(--red)">Hypokalemia</span>, dehydration, ototoxicity (high doses/rapid IV)</li>
+            <li><strong>Monitor:</strong> K+, BUN/Cr, urine output, weight</li>
+            <li>Give in morning to avoid nocturia</li>
+          </ul>
+        </div>
+        <div class="card" style="margin-top:14px">
+          <div class="card-title">💊 Thiazide Diuretics</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:10px">HCTZ (hydrochlorothiazide), chlorthalidone</div>
+          <ul class="bullet-list">
+            <li>Milder diuresis than loop diuretics</li>
+            <li>Used for HTN, mild fluid retention</li>
+            <li>SE: Hypokalemia, hyponatremia, hyperglycemia, hyperuricemia</li>
+            <li>Monitor: Electrolytes, glucose</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="card-title">🛡️ Potassium-Sparing Diuretics</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:10px">Spironolactone, eplerenone, triamterene</div>
+          <ul class="bullet-list">
+            <li>Weak diuresis but SAVES potassium</li>
+            <li>Used with loop/thiazide to prevent hypokalemia</li>
+            <li>SE: <span style="color:var(--red)">Hyperkalemia</span> (especially with ACE-I/ARB)</li>
+            <li>Spironolactone: gynecomastia in men</li>
+            <li>Monitor: K+ closely</li>
+          </ul>
+        </div>
+        <div class="card highlight-orange" style="margin-top:14px">
+          <div class="card-title">⚠️ NCLEX Alert: Potassium</div>
+          <p style="font-size:13px">Loop diuretics → hypoKalemia → digoxin toxicity risk ↑ (hypokalemia potentiates digoxin toxicity).<br><br>Potassium-sparing + ACE-I → dangerous HYPERkalemia.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-nitrates" class="sub-section">
+    <div class="alert alert-emergency">🚨 <span><strong>NEVER give nitrates with PDE-5 inhibitors</strong> (sildenafil, tadalafil) → severe life-threatening hypotension.</span></div>
+    <div class="dual-col">
+      <div>
+        <div class="card">
+          <div class="card-title">💨 Nitrates</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:10px">Nitroglycerin (NTG), isosorbide mononitrate/dinitrate</div>
+          <ul class="bullet-list">
+            <li><strong>Mechanism:</strong> Release NO → venodilation → ↓ preload → ↓ cardiac work. Also coronary vasodilation</li>
+            <li><strong>Uses:</strong> Angina, ACS, heart failure, hypertensive emergency</li>
+            <li><strong>SE:</strong> Headache, hypotension, flushing, dizziness</li>
+            <li><strong>Teaching:</strong> SL NTG: 1 tab, wait 5 min, repeat x3, if no relief call 911</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="card highlight-red">
+          <div class="card-title">🚨 Safety Points</div>
+          <ul class="bullet-list">
+            <li>Store in dark glass bottle (light-sensitive)</li>
+            <li>Replace SL tabs every 6 months</li>
+            <li>Tolerance develops with continuous use (nitrate-free period)</li>
+            <li>Patient should be sitting/lying when taking NTG (hypotension risk)</li>
+            <li>Tingling under tongue = still potent</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-inotropes" class="sub-section">
+    <div class="card-grid">
+      <div class="card highlight-green">
+        <div class="card-title">💪 Dobutamine</div>
+        <ul class="bullet-list">
+          <li>Positive inotrope (β1 agonist)</li>
+          <li>↑ Contractility without major BP effect</li>
+          <li>Used: Cardiogenic shock, decompensated HF</li>
+          <li>Monitor: Arrhythmias, HR, BP</li>
+        </ul>
+      </div>
+      <div class="card highlight-red">
+        <div class="card-title">⬆️ Norepinephrine (Levophed)</div>
+        <ul class="bullet-list">
+          <li>Primary vasopressor — α1 agonist</li>
+          <li>Potent vasoconstriction → ↑ BP</li>
+          <li>Used: Septic shock, vasodilatory shock</li>
+          <li>Monitor: BP q15min, tissue perfusion, IV site (extravasation risk)</li>
+        </ul>
+      </div>
+      <div class="card highlight-orange">
+        <div class="card-title">🔄 Dopamine</div>
+        <ul class="bullet-list">
+          <li>Dose-dependent effects:</li>
+          <li>Low (2–5 mcg): Renal/splanchnic vasodilation</li>
+          <li>Mid (5–10 mcg): ↑ CO (β1)</li>
+          <li>High (&gt;10 mcg): Vasoconstriction (α)</li>
+          <li>Used: Shock states, bradycardia</li>
+        </ul>
+      </div>
+      <div class="card highlight-yellow">
+        <div class="card-title">💛 Digoxin</div>
+        <ul class="bullet-list">
+          <li>Positive inotrope + slows AV conduction</li>
+          <li>Used: HF, atrial fibrillation</li>
+          <li><strong>Check apical pulse 1 full min before giving</strong></li>
+          <li>Hold if HR &lt;60</li>
+          <li><strong>Toxicity:</strong> N/V, visual changes (yellow-green halo), bradycardia, arrhythmias</li>
+          <li>HypoK+ ↑ toxicity risk</li>
+          <li>Therapeutic level: 0.5–2 ng/mL</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-anticoag" class="sub-section">
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-title">🩸 Heparin (Unfractionated)</div>
+        <ul class="bullet-list">
+          <li>Antithrombin III activator → inhibits clotting factors</li>
+          <li>Rapid onset, IV/SQ route</li>
+          <li>Monitor: <strong>aPTT</strong> (goal 60–100 sec)</li>
+          <li>Antidote: <strong>Protamine sulfate</strong></li>
+          <li>Watch for: HIT (Heparin-Induced Thrombocytopenia)</li>
+          <li>If platelets drop &gt;50% → stop heparin</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">💊 Warfarin (Coumadin)</div>
+        <ul class="bullet-list">
+          <li>Vitamin K antagonist → inhibits factors II, VII, IX, X</li>
+          <li>Oral; slow onset 3–5 days</li>
+          <li>Monitor: <strong>INR</strong> (goal 2–3, higher for mechanical valves)</li>
+          <li>Antidote: <strong>Vitamin K</strong> (slow), FFP (fast)</li>
+          <li>Many drug/food interactions (green leafy vegetables → ↑ Vit K)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">💉 Low Molecular Weight Heparin</div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:8px">Enoxaparin (Lovenox)</div>
+        <ul class="bullet-list">
+          <li>More predictable than UFH</li>
+          <li>Does NOT require aPTT monitoring</li>
+          <li>SQ injection only</li>
+          <li>Don't rub injection site</li>
+          <li>Antidote: Protamine (partial reversal)</li>
+        </ul>
+      </div>
+      <div class="card highlight-red">
+        <div class="card-title">🚨 Universal Anticoagulant Teaching</div>
+        <ul class="bullet-list">
+          <li>Report any unusual bleeding or bruising</li>
+          <li>Use soft toothbrush</li>
+          <li>Avoid contact sports</li>
+          <li>No NSAIDs (↑ bleeding risk)</li>
+          <li>Wear medical alert bracelet</li>
+          <li>Apply pressure to cuts for 10+ minutes</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-thrombo" class="sub-section">
+    <div class="alert alert-emergency">🚨 <span><strong>Thrombolytics = "clot busters."</strong> Major bleeding risk. Absolute contraindications MUST be screened before administration.</span></div>
+    <div class="dual-col">
+      <div>
+        <div class="card">
+          <div class="card-title">💊 Thrombolytics</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:8px">tPA (alteplase), reteplase, streptokinase</div>
+          <ul class="bullet-list">
+            <li>Activate plasminogen → plasmin → dissolves clots</li>
+            <li>Used: STEMI, massive PE, ischemic stroke (within 3–4.5 hrs)</li>
+            <li>Time-critical: "Time is muscle" / "Time is brain"</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="card highlight-red">
+          <div class="card-title">🚨 Contraindications</div>
+          <ul class="bullet-list">
+            <li>Active internal bleeding</li>
+            <li>Recent surgery (&lt;3 months)</li>
+            <li>Recent intracranial surgery/trauma</li>
+            <li>History of hemorrhagic stroke</li>
+            <li>Uncontrolled HTN (&gt;185/110)</li>
+            <li>Ischemic stroke &gt;4.5 hours ago</li>
+          </ul>
+        </div>
+        <div class="highlight highlight-orange" style="margin-top:14px;font-size:13px">
+          ⚠️ After thrombolytics: minimize invasive procedures, no IM injections, apply manual pressure to all puncture sites for 15–20 minutes.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-med-challenge" class="sub-section">
+    <h3 style="font-size:16px;font-weight:700;margin-bottom:6px;color:var(--pink)">🎮 Medication Safety Challenge</h3>
+    <p style="font-size:13.5px;color:var(--muted);margin-bottom:20px">Click a medication card. Identify the priority concern.</p>
+    <div id="medChallenge"></div>
+  </div>
+</section>
+
+<!-- ============================================================ SECTION 6: SYMPTOMS -->
+<section id="symptoms" class="section">
+  <div class="section-header">
+    <h2 class="green">🩺 Symptoms & Clinical Clues</h2>
+    <p>What symptoms mean, why they happen, and what the nurse should think next</p>
+  </div>
+
+  <div class="sub-tabs">
+    <button class="sub-tab-btn active" onclick="switchSubTab(this,'symptoms')" data-subtab="chest-pain">Chest Pain</button>
+    <button class="sub-tab-btn" onclick="switchSubTab(this,'symptoms')" data-subtab="hf-clues">Heart Failure</button>
+    <button class="sub-tab-btn" onclick="switchSubTab(this,'symptoms')" data-subtab="vocab">Key Vocabulary</button>
+    <button class="sub-tab-btn" onclick="switchSubTab(this,'symptoms')" data-subtab="perfusion-clues">Perfusion Clues</button>
+  </div>
+
+  <div id="sub-chest-pain" class="sub-section active">
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr><th>Type</th><th>Character</th><th>What Makes It Worse</th><th>Better</th><th>Think</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Angina</strong></td><td>Pressure, squeezing, tight</td><td>Exertion, stress, cold</td><td>Rest, nitroglycerin</td><td>CAD, coronary ischemia</td></tr>
+          <tr><td><strong>MI</strong></td><td>Crushing, severe; may radiate to arm/jaw</td><td>Nothing relieves it</td><td>NOT relieved by NTG</td><td>EMERGENCY — call code</td></tr>
+          <tr><td><strong>Pericarditis</strong></td><td>Sharp, pleuritic</td><td>Inspiration, lying flat</td><td>Leaning forward</td><td>Pericardial inflammation</td></tr>
+          <tr><td><strong>Aortic Dissection</strong></td><td>Tearing, ripping, sudden, severe</td><td>Any movement</td><td>Nothing</td><td>Emergency — BP difference between arms</td></tr>
+          <tr><td><strong>PE</strong></td><td>Pleuritic, sudden onset dyspnea</td><td>Deep breathing</td><td>Variable</td><td>Immobilization, DVT risk</td></tr>
+          <tr><td><strong>GERD/Esophageal</strong></td><td>Burning</td><td>Food, lying down</td><td>Antacids</td><td>Differentiating from cardiac</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="sub-hf-clues" class="sub-section">
+    <div class="grid-3">
+      <div class="card highlight-blue">
+        <div class="card-title">💧 Dyspnea</div>
+        <p style="font-size:13px"><strong>What:</strong> Difficulty breathing<br><strong>Why:</strong> Fluid in alveoli (pulmonary edema) → impaired gas exchange<br><strong>Think next:</strong> Check O₂ sat, position HOB &gt;45°, call MD if sudden</p>
+      </div>
+      <div class="card highlight-blue">
+        <div class="card-title">🛌 Orthopnea</div>
+        <p style="font-size:13px"><strong>What:</strong> Can't breathe flat, needs pillows<br><strong>Why:</strong> Gravity redistributes fluid to lungs when lying flat<br><strong>Think next:</strong> Left HF worsening. Document number of pillows needed.</p>
+      </div>
+      <div class="card highlight-orange">
+        <div class="card-title">🌊 PND</div>
+        <p style="font-size:13px"><strong>What:</strong> Paroxysmal Nocturnal Dyspnea — sudden breathlessness waking from sleep<br><strong>Why:</strong> Fluid re-distributes when lying, overwhelms lungs<br><strong>Think next:</strong> HF, adjust diuretics</p>
+      </div>
+      <div class="card highlight-red">
+        <div class="card-title">🫀 JVD</div>
+        <p style="font-size:13px"><strong>What:</strong> Jugular vein distention — neck veins bulging<br><strong>Why:</strong> Venous pressure backs up into neck<br><strong>Think next:</strong> Right HF, tamponade, obstructive shock</p>
+      </div>
+      <div class="card highlight-blue">
+        <div class="card-title">⚖️ Weight Gain</div>
+        <p style="font-size:13px"><strong>What:</strong> Rapid weight gain (2+ lbs/day, 5+ lbs/week)<br><strong>Why:</strong> Fluid retention (third-spacing)<br><strong>Think next:</strong> Report to MD, adjust diuretics</p>
+      </div>
+      <div class="card highlight-green">
+        <div class="card-title">🦵 Peripheral Edema</div>
+        <p style="font-size:13px"><strong>What:</strong> Swelling in legs/ankles<br><strong>Why:</strong> Right HF → increased venous pressure → fluid shifts to tissue<br><strong>Think next:</strong> Document pitting grade, elevate legs, daily weight</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-vocab" class="sub-section">
+    <h3 style="font-size:15px;font-weight:700;margin-bottom:14px;color:var(--green)">📖 Medical Term ↔ Plain English</h3>
+    <div class="card-grid">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <span style="font-size:16px;font-weight:700;color:var(--cyan)">Dyspnea</span>
+          <span class="badge badge-info">Respiratory</span>
+        </div>
+        <p style="font-size:13px;color:var(--green)">= Difficulty breathing / shortness of breath</p>
+      </div>
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <span style="font-size:16px;font-weight:700;color:var(--cyan)">Tachycardia</span>
+          <span class="badge badge-abnormal">HR</span>
+        </div>
+        <p style="font-size:13px;color:var(--green)">= Heart rate faster than 100 bpm</p>
+      </div>
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <span style="font-size:16px;font-weight:700;color:var(--cyan)">Bradycardia</span>
+          <span class="badge badge-warning">HR</span>
+        </div>
+        <p style="font-size:13px;color:var(--green)">= Heart rate slower than 60 bpm</p>
+      </div>
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <span style="font-size:16px;font-weight:700;color:var(--cyan)">Hypotension</span>
+          <span class="badge badge-abnormal">BP</span>
+        </div>
+        <p style="font-size:13px;color:var(--green)">= Low blood pressure (systolic &lt;90 mmHg)</p>
+      </div>
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <span style="font-size:16px;font-weight:700;color:var(--cyan)">Oliguria</span>
+          <span class="badge badge-abnormal">Kidney</span>
+        </div>
+        <p style="font-size:13px;color:var(--green)">= Decreased urine output (&lt;30 mL/hr = alarm)</p>
+      </div>
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <span style="font-size:16px;font-weight:700;color:var(--cyan)">Perfusion</span>
+          <span class="badge badge-info">Circulation</span>
+        </div>
+        <p style="font-size:13px;color:var(--green)">= Blood (and oxygen) reaching tissues adequately</p>
+      </div>
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <span style="font-size:16px;font-weight:700;color:var(--cyan)">Diaphoresis</span>
+          <span class="badge badge-warning">Skin</span>
+        </div>
+        <p style="font-size:13px;color:var(--green)">= Profuse sweating (often sign of sympathetic activation)</p>
+      </div>
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <span style="font-size:16px;font-weight:700;color:var(--cyan)">Palpitations</span>
+          <span class="badge badge-warning">Cardiac</span>
+        </div>
+        <p style="font-size:13px;color:var(--green)">= Awareness of heartbeat; may feel rapid, irregular, or pounding</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-perfusion-clues" class="sub-section">
+    <div class="alert alert-emergency">🚨 <span>Poor perfusion clues = your patient may be in shock. Act FAST.</span></div>
+    <div class="card-grid">
+      <div class="card highlight-red"><div class="card-title">🧠 Altered LOC</div><p style="font-size:13px">Brain not getting enough blood. Progression: restless → confused → lethargic → unresponsive. ALWAYS report new LOC changes immediately.</p></div>
+      <div class="card highlight-red"><div class="card-title">🫧 Oliguria</div><p style="font-size:13px">&lt;30 mL/hr = kidneys not perfused. First sign of shock in many patients. Foley catheter output must be monitored hourly in acute illness.</p></div>
+      <div class="card highlight-orange"><div class="card-title">❄️ Cool Clammy Skin</div><p style="font-size:13px">Vasoconstriction redirecting blood to core organs. Combined with diaphoresis = sympathetic overdrive from low CO. Classic in cardiogenic shock.</p></div>
+      <div class="card highlight-orange"><div class="card-title">📉 Weak Pulses</div><p style="font-size:13px">Peripheral pulses weak/thready = poor stroke volume. Compare bilateral. Note capillary refill &gt;3 seconds = poor perfusion.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ SECTION 7: CASE SCENARIOS -->
+<section id="cases" class="section">
+  <div class="section-header">
+    <h2 class="pink">📋 NCLEX Case Scenarios</h2>
+    <p>Interactive clinical reasoning. Reveal information progressively and choose your answer.</p>
+  </div>
+  <div id="caseContainer"></div>
+</section>
+
+<!-- ============================================================ SECTION 8: QUIZ -->
+<section id="quiz" class="section">
+  <div class="section-header">
+    <h2 class="yellow">⚡ Quick Check Quiz</h2>
+    <p>20 NCLEX-style questions with immediate feedback and rationales</p>
+  </div>
+
+  <div class="score-display">
+    <div class="score-big" id="quizScoreDisplay">0/20</div>
+    <div style="color:var(--muted);font-size:13px;margin-top:4px" id="quizScoreLabel">Answer questions below</div>
+    <div class="progress-bar-wrap" style="margin-top:10px">
+      <div class="progress-bar" id="quizProgress" style="width:0%"></div>
+    </div>
+  </div>
+
+  <div id="quizContainer"></div>
+
+  <div style="text-align:center;margin-top:24px">
+    <button class="btn btn-primary" onclick="resetQuiz()">🔄 Restart Quiz</button>
+  </div>
+</section>
+
+<!-- ============================================================ SECTION 9: MEMORY HELPERS -->
+<section id="memory" class="section">
+  <div class="section-header">
+    <h2 class="cyan">🧠 Memory Helpers & Mnemonics</h2>
+    <p>Smart patterns to make high-yield content stick</p>
+  </div>
+
+  <div class="mnemonic-card" style="border-color:rgba(255,71,87,0.3)">
+    <div class="card-title" style="font-size:17px;color:var(--red)">🎵 S3 vs S4 — Never Confuse Again</div>
+    <div class="dual-col" style="margin-top:14px">
+      <div class="highlight highlight-orange">
+        <div style="font-size:20px;font-weight:800;margin-bottom:6px;color:var(--orange)">S3 = "Ken-tuc-ky"</div>
+        <p style="font-size:13px">Early diastole. Fluid rushing into a <strong>floppy, distended ventricle</strong>.<br><br>
+        💡 Think: <strong>S3 = Sloshy = fluid overload</strong><br>
+        → Heart failure, dilated cardiomyopathy<br>
+        → Normal in young patients and pregnancy<br>
+        → NCLEX: S3 in older adult + dyspnea = HF</p>
+      </div>
+      <div class="highlight highlight-red">
+        <div style="font-size:20px;font-weight:800;margin-bottom:6px;color:var(--red)">S4 = "Ten-nes-see"</div>
+        <p style="font-size:13px">Late diastole. Atrium forcing blood into a <strong>stiff, non-compliant ventricle</strong>.<br><br>
+        💡 Think: <strong>S4 = Stiff = hypertension</strong><br>
+        → Hypertension, ventricular hypertrophy, MI<br>
+        → ALWAYS abnormal (not normal at any age)<br>
+        → NCLEX: S4 = diastolic dysfunction</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="mnemonic-card" style="border-color:rgba(255,71,87,0.3)">
+    <div class="card-title" style="font-size:17px;color:var(--red)">🚨 Beck's Triad for Tamponade</div>
+    <div class="highlight highlight-red" style="margin-top:12px">
+      <div style="font-size:18px;font-weight:800;margin-bottom:10px">B · E · C · K · S</div>
+      <p style="font-size:13.5px;line-height:2">
+        <strong>B</strong>lood pressure ↓ (Hypotension)<br>
+        <strong>E</strong>levated JVD (Neck veins distended)<br>
+        <strong>C</strong>ardiac sounds muffled<br>
+        <strong>K</strong>inds of heart (Beck's = fluid compressing heart)<br>
+        <strong>S</strong>end to pericardiocentesis STAT
+      </p>
+    </div>
+    <div class="highlight highlight-orange" style="margin-top:10px;font-size:13px">Also remember: Narrowed pulse pressure + Pulsus paradoxus &gt;10 mmHg</div>
+  </div>
+
+  <div class="mnemonic-card" style="border-color:rgba(255,159,67,0.3)">
+    <div class="card-title" style="font-size:17px;color:var(--orange)">🔥 Pericarditis Position Trick</div>
+    <div class="dual-col" style="margin-top:12px">
+      <div class="highlight highlight-red">
+        <div style="font-size:24px;margin-bottom:4px">😖 WORSE</div>
+        <p style="font-size:13px"><strong>Lying FLAT</strong> + Deep inspiration<br>→ Pericardial layers rub more<br>→ "I can't breathe lying down!"</p>
+      </div>
+      <div class="highlight highlight-green">
+        <div style="font-size:24px;margin-bottom:4px">😌 BETTER</div>
+        <p style="font-size:13px"><strong>Sitting up, leaning FORWARD</strong><br>→ Reduces friction<br>→ Classic pericarditis posture on NCLEX</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="mnemonic-card" style="border-color:rgba(46,213,115,0.3)">
+    <div class="card-title" style="font-size:17px;color:var(--green)">💊 Antihypertensive Classes — "A BCCD"</div>
+    <div class="highlight" style="margin-top:12px;font-size:13.5px;line-height:2.2">
+      <strong style="color:var(--red)">A</strong>CE inhibitors / ARBs → ↓ angiotensin → vasodilation + ↓ aldosterone<br>
+      <strong style="color:var(--orange)">B</strong>eta blockers → ↓ HR + ↓ contractility<br>
+      <strong style="color:var(--yellow)">C</strong>alcium channel blockers → vasodilation<br>
+      <strong style="color:var(--green)">C</strong>entrally acting agents → clonidine, methyldopa<br>
+      <strong style="color:var(--blue)">D</strong>iuretics → reduce fluid volume
+    </div>
+  </div>
+
+  <div class="mnemonic-card" style="border-color:rgba(165,94,234,0.3)">
+    <div class="card-title" style="font-size:17px;color:var(--purple)">🦠 Endocarditis Clues — "FEVER JONES"</div>
+    <div class="highlight highlight-purple" style="margin-top:12px;font-size:13.5px;line-height:2">
+      <strong>F</strong>ever<br>
+      <strong>E</strong>mboli (stroke, PE risk)<br>
+      <strong>V</strong>egetations on valves<br>
+      <strong>E</strong>levated WBC<br>
+      <strong>R</strong>oth spots, splinter hemorrhages<br>
+      <strong style="color:var(--cyan)">J</strong>aneway lesions + <strong>O</strong>sler nodes<br>
+      <strong>N</strong>ew murmur<br>
+      <strong>E</strong>cho for diagnosis<br>
+      <strong>S</strong>eptic emboli risk
+    </div>
+  </div>
+
+  <div class="mnemonic-card" style="border-color:rgba(30,144,255,0.3)">
+    <div class="card-title" style="font-size:17px;color:var(--cyan)">⚡ Shock Recognition — Skin Clue</div>
+    <div class="dual-col" style="margin-top:12px">
+      <div class="highlight highlight-red">
+        <div style="font-size:15px;font-weight:700;margin-bottom:8px;color:var(--red)">COOL + CLAMMY Skin</div>
+        <p style="font-size:13px">= Cardiogenic or Hypovolemic shock<br>Vasoconstriction active<br>Blood redirected to core</p>
+      </div>
+      <div class="highlight highlight-orange">
+        <div style="font-size:15px;font-weight:700;margin-bottom:8px;color:var(--orange)">WARM + FLUSHED Skin</div>
+        <p style="font-size:13px">= Distributive shock (septic/anaphylactic)<br>Vasodilation active<br>Blood pooling in periphery</p>
+      </div>
+    </div>
+    <div class="highlight highlight-blue" style="margin-top:10px;font-size:13px">
+      💡 <strong>JVD present?</strong> Cardiogenic or Obstructive. <strong>JVD absent/flat?</strong> Hypovolemic or Distributive.
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ SECTION 10: RAPID REVIEW -->
+<section id="review" class="section">
+  <div class="section-header">
+    <h2 class="yellow">⚡ Rapid Review Cheat Sheet</h2>
+    <p>High-yield NCLEX bullets — read this the morning of your exam</p>
+  </div>
+
+  <div class="dual-col">
+    <div>
+      <div class="card highlight-red" style="margin-bottom:14px">
+        <div class="card-title">🚨 Emergency Findings — Act NOW</div>
+        <ul class="bullet-list">
+          <li>Beck's Triad (↓BP + JVD + muffled sounds) = Tamponade</li>
+          <li>Sudden severe "tearing" chest pain = Aortic Dissection</li>
+          <li>Anaphylaxis = Epinephrine IM FIRST</li>
+          <li>Crushing chest pain unrelieved by NTG = MI</li>
+          <li>Angioedema after ACE-I = STOP med, airway priority</li>
+          <li>Urine output &lt;30 mL/hr = Report to MD</li>
+          <li>New neurological symptoms + fever = emboli (endocarditis)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title" style="color:var(--orange)">🎵 Must-Know Heart Sounds</div>
+        <ul class="bullet-list">
+          <li><strong>S1</strong> = "Lubb" = AV valves close = start systole</li>
+          <li><strong>S2</strong> = "Dubb" = Semilunar valves close = end systole</li>
+          <li><strong>S3</strong> = fluid overload, heart failure (floppy ventricle)</li>
+          <li><strong>S4</strong> = stiff ventricle (hypertension, hypertrophy)</li>
+          <li><strong>Friction rub</strong> = pericarditis</li>
+          <li><strong>Muffled sounds</strong> = cardiac tamponade (EMERGENCY)</li>
+          <li><strong>Murmur</strong> = turbulent flow (valve disease, endocarditis)</li>
+        </ul>
+      </div>
+
+      <div class="card" style="margin-top:14px">
+        <div class="card-title" style="color:var(--purple)">💊 Medication Must-Know Side Effects</div>
+        <ul class="bullet-list">
+          <li>ACE-I → dry cough, hyperkalemia, angioedema</li>
+          <li>Beta blockers → bradycardia, masks hypoglycemia; no abrupt stop</li>
+          <li>Loop diuretics → hypokalemia (→ digoxin toxicity if on both)</li>
+          <li>K+-sparing diuretics + ACE-I → hyperkalemia</li>
+          <li>Nitrates + PDE-5 inhibitors → FATAL hypotension (NEVER combine)</li>
+          <li>Digoxin toxicity → N/V, yellow-green halos, bradycardia</li>
+          <li>Thrombolytics → major bleeding (no IM injections after)</li>
+          <li>Heparin → HIT (platelets drop &gt;50%)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div>
+      <div class="card">
+        <div class="card-title" style="color:var(--green)">✅ Normal vs Abnormal Quick Reference</div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <tr><th>Parameter</th><th>Normal</th><th>Alert Value</th></tr>
+            <tr><td>HR</td><td>60–100</td><td style="color:var(--red)">&lt;60 or &gt;100</td></tr>
+            <tr><td>SBP</td><td>90–140</td><td style="color:var(--red)">&lt;90 = shock</td></tr>
+            <tr><td>Urine Output</td><td>&gt;30 mL/hr</td><td style="color:var(--red)">&lt;30 mL/hr = alarm</td></tr>
+            <tr><td>SpO₂</td><td>≥95%</td><td style="color:var(--red)">&lt;90% = urgent</td></tr>
+            <tr><td>INR (warfarin)</td><td>2–3</td><td style="color:var(--red)">&gt;3.5 = bleeding risk</td></tr>
+            <tr><td>K+</td><td>3.5–5.0</td><td style="color:var(--red)">&lt;3.5 or &gt;5.0</td></tr>
+            <tr><td>Digoxin level</td><td>0.5–2.0 ng/mL</td><td style="color:var(--red)">&gt;2.0 = toxicity</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px">
+        <div class="card-title" style="color:var(--cyan)">🔑 Priority NCLEX Bullets</div>
+        <ul class="bullet-list">
+          <li>ALWAYS get blood cultures BEFORE starting antibiotics (endocarditis)</li>
+          <li>Check apical pulse x1 full minute before giving digoxin</li>
+          <li>Pericarditis position: sit up, lean forward</li>
+          <li>Tamponade treatment: pericardiocentesis</li>
+          <li>Septic shock: antibiotics within 1 hour</li>
+          <li>Anaphylaxis: Epi first, then Benadryl, then steroids</li>
+          <li>Heart failure: daily weight (2+ lbs/day gain = report)</li>
+          <li>Nitro teaching: sit/lie when taking (hypotension risk)</li>
+          <li>Cardiogenic shock: avoid large fluid boluses</li>
+          <li>Beta blocker: never stop abruptly (rebound)</li>
+        </ul>
+      </div>
+
+      <div class="card highlight-green" style="margin-top:14px">
+        <div class="card-title">🎯 The NCLEX Mindset</div>
+        <ul class="bullet-list">
+          <li>Always prioritize <strong>ABC</strong> (Airway, Breathing, Circulation)</li>
+          <li>When in doubt, <strong>assess FIRST</strong>, then intervene</li>
+          <li>Unstable vitals = call MD FIRST (before implementing independent interventions)</li>
+          <li>Delegate STABLE patients; keep UNSTABLE patients yourself</li>
+          <li>Select the option that addresses the <strong>priority threat to life</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+// =============================================
+// TAB NAVIGATION
+// =============================================
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    btn.classList.add('active');
+    const tabId = btn.dataset.tab;
+    const section = document.getElementById(tabId);
+    if (section) { section.classList.add('active'); }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+// =============================================
+// SUB TABS
+// =============================================
+function switchSubTab(btn, parentId) {
+  const parent = btn.closest('.section') || document;
+  parent.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const subtabId = btn.dataset.subtab;
+  parent.querySelectorAll('.sub-section').forEach(s => s.classList.remove('active'));
+  const target = document.getElementById('sub-' + subtabId);
+  if (target) target.classList.add('active');
+}
+
+// =============================================
+// ACCORDION
+// =============================================
+function toggleAccordion(header) {
+  header.classList.toggle('open');
+  const body = header.nextElementSibling;
+  body.classList.toggle('open');
+}
+
+// =============================================
+// REVEAL
+// =============================================
+function toggleReveal(id) {
+  const el = document.getElementById(id);
+  el.classList.toggle('open');
+}
+
+// =============================================
+// HEART SOUNDS DATA + DETAIL
+// =============================================
+const soundData = {
+  s1: {
+    title: 'S1 — "Lubb"',
+    badge: 'NORMAL',
+    badgeClass: 'badge-normal',
+    icon: '🟢',
+    description: 'The first heart sound. Marks the beginning of systole. Heard best at the apex (5th ICS, midclavicular line).',
+    mechanism: 'Closure of the mitral (bicuspid) and tricuspid AV valves simultaneously as ventricular contraction begins.',
+    soundLike: '"Lubb" — low-pitched, dull. Start of the heartbeat you feel.',
+    clinical: 'Normal finding in all patients.',
+    diseaseHint: 'Loud S1 in mitral stenosis. Soft S1 if first-degree heart block or poor contractility.',
+    nclexWhy: 'Baseline sound — important to know for comparison when abnormal sounds occur.',
+    nursing: 'Document if changed from baseline. Loud, split, or absent S1 warrants assessment.',
+    simple: 'This is the "lub" part of "lub-dub." Totally normal. The heart just started squeezing!'
+  },
+  s2: {
+    title: 'S2 — "Dubb"',
+    badge: 'NORMAL',
+    badgeClass: 'badge-normal',
+    icon: '🔵',
+    description: 'The second heart sound. Marks end of systole. Heard best at the base (aortic/pulmonic area).',
+    mechanism: 'Closure of the aortic and pulmonic semilunar valves as ventricular relaxation begins.',
+    soundLike: '"Dubb" — slightly higher pitched than S1. End of the main heartbeat.',
+    clinical: 'Normal finding. Physiologic splitting with inspiration is normal.',
+    diseaseHint: 'Fixed split S2 → ASD. Wide split → RBBB. Paradoxical split → LBBB, severe AS.',
+    nclexWhy: 'Know that splitting can indicate congenital defects. Fixed split S2 = ASD.',
+    nursing: 'Note any new splitting. Correlate with patient history.',
+    simple: 'This is the "dub" part of "lub-dub." The heart just finished squeezing and valves closed.'
+  },
+  s3: {
+    title: 'S3 — Ventricular Gallop',
+    badge: 'ABNORMAL*',
+    badgeClass: 'badge-warning',
+    icon: '🟠',
+    description: 'Third heart sound heard in early diastole. Creates a "Ken-tuc-ky" gallop rhythm (S1-S2-S3).',
+    mechanism: 'Blood rushing rapidly from atrium into a distended, non-compliant (floppy) ventricle during rapid ventricular filling. Ventricular wall vibrates.',
+    soundLike: '"Ken-tuc-ky" — low-pitched, heard best with bell at apex.',
+    clinical: 'Normal in children and young adults (&lt;40) and in pregnancy. Abnormal in adults.',
+    diseaseHint: 'Heart failure, dilated cardiomyopathy, fluid overload, mitral regurgitation.',
+    nclexWhy: 'S3 in an adult = FLUID OVERLOAD / HEART FAILURE. This is a high-yield NCLEX association!',
+    nursing: 'Report new S3 in adult patients. Assess for other signs of HF: JVD, edema, crackles, weight gain.',
+    simple: 'Think of it as the sound of too much fluid sloshing into the heart. It\'s like an overflowing bucket. New S3 in an adult = alert the doctor!'
+  },
+  s4: {
+    title: 'S4 — Atrial Gallop',
+    badge: 'ABNORMAL',
+    badgeClass: 'badge-abnormal',
+    icon: '🔴',
+    description: 'Fourth heart sound heard in late diastole. Creates "Ten-nes-see" gallop rhythm (S4-S1-S2).',
+    mechanism: 'Atrium contracts forcefully against a stiff, non-compliant ventricle. The resistance causes vibration.',
+    soundLike: '"Ten-nes-see" — low-pitched, heard best with bell at apex.',
+    clinical: 'ALWAYS pathological. Never normal.',
+    diseaseHint: 'Hypertension, ventricular hypertrophy, aortic stenosis, acute MI, hypertrophic cardiomyopathy.',
+    nclexWhy: 'S4 = stiff/hypertrophied ventricle. Think HTN. Always abnormal — always report.',
+    nursing: 'Document and report. Assess for hypertension. May indicate diastolic dysfunction or post-MI status.',
+    simple: 'Think of the heart muscle being too stiff (like a tough rubber ball). The atrium has to squeeze really hard to push blood in, causing this extra sound.'
+  },
+  murmur: {
+    title: 'Cardiac Murmur',
+    badge: 'ABNORMAL',
+    badgeClass: 'badge-abnormal',
+    icon: '🟣',
+    description: 'Turbulent blood flow through the heart creating a whooshing or swishing sound between normal heart sounds.',
+    mechanism: 'Turbulence from: valve stenosis (narrowing), valve regurgitation (leaking), septal defects, or high-flow states (anemia, pregnancy).',
+    soundLike: '"Whoosh" or "swish" — heard between S1 and S2 (systolic) or between S2 and S1 (diastolic).',
+    clinical: 'Can be innocent (functional/flow murmur) in children/athletes, or pathological in adults.',
+    diseaseHint: 'Mitral regurgitation (systolic), aortic stenosis (systolic, harsh), endocarditis (new murmur), mitral stenosis (diastolic).',
+    nclexWhy: 'New murmur + fever = ENDOCARDITIS until proven otherwise. Diastolic murmurs are always pathological.',
+    nursing: 'Document location, radiation, timing, character, grade. Report any new murmur. Assess for HF symptoms.',
+    simple: 'It\'s like wind blowing through a crooked pipe — something about the blood flow isn\'t smooth. It may or may not be serious depending on type.'
+  },
+  muffled: {
+    title: 'Muffled Heart Sounds',
+    badge: '🚨 EMERGENCY',
+    badgeClass: 'badge-emergency',
+    icon: '⚫',
+    description: 'Heart sounds that appear distant, soft, or hard to hear despite proper auscultation.',
+    mechanism: 'Fluid in the pericardial sac (pericardial effusion or tamponade) insulates and dampens the vibrations from heart sounds reaching the stethoscope.',
+    soundLike: 'Sounds like you\'re listening to a heart through a wall — muffled, distant, hard to appreciate S1 and S2.',
+    clinical: 'ABNORMAL and potentially life-threatening. One component of Beck\'s Triad.',
+    diseaseHint: 'Cardiac tamponade, large pericardial effusion. Think obstructive shock.',
+    nclexWhy: 'Muffled heart sounds + hypotension + JVD = Beck\'s Triad = CARDIAC TAMPONADE. Priority is immediate intervention.',
+    nursing: '🚨 Notify physician IMMEDIATELY. Prepare for pericardiocentesis. Have emergency equipment ready. Monitor vitals continuously.',
+    simple: 'Imagine trying to hear someone talk through a thick pillow. The fluid around the heart is the "pillow." This is a 911 situation.'
+  },
+  rub: {
+    title: 'Pericardial Friction Rub',
+    badge: 'ABNORMAL',
+    badgeClass: 'badge-abnormal',
+    icon: '🩷',
+    description: 'A harsh, scratchy, high-pitched sound best heard with the patient leaning forward.',
+    mechanism: 'Inflamed visceral and parietal pericardial layers rubbing against each other during cardiac movement.',
+    soundLike: '"Scratching" or "leather rubbing" — heard best at left sternal border with patient leaning forward.',
+    clinical: 'Pathological. Best heard during expiration with patient sitting up and leaning forward.',
+    diseaseHint: 'Pericarditis (inflammation of pericardium). Also post-MI (Dressler syndrome), uremia, malignancy.',
+    nclexWhy: 'Classic sign of pericarditis. Combined with: sharp chest pain worse when lying flat, better leaning forward = pericarditis triad.',
+    nursing: 'Document. Note if it disappears (effusion may be developing). Assess for worsening symptoms. Pain management (NSAIDs). Position patient for comfort.',
+    simple: 'Imagine rubbing two pieces of sandpaper together — that\'s what inflamed heart sac layers sound like. Position the patient leaning forward for comfort.'
+  }
+};
+
+function showSoundDetail(key) {
+  const d = soundData[key];
+  const detail = document.getElementById('soundDetail');
+  const content = document.getElementById('soundDetailContent');
+
+  document.querySelectorAll('.sound-card').forEach(c => c.classList.remove('active-card'));
+  event.currentTarget.classList.add('active-card');
+
+  content.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <span style="font-size:36px">${d.icon}</span>
+        <div>
+          <div style="font-size:20px;font-weight:800">${d.title}</div>
+          <span class="badge ${d.badgeClass}">${d.badge}</span>
+        </div>
+      </div>
+    </div>
+    <div class="dual-col">
+      <div>
+        <div class="highlight highlight-blue" style="margin-bottom:12px">
+          <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:4px">Sounds Like</div>
+          <div style="font-size:15px;font-weight:700;font-family:'JetBrains Mono',monospace;color:var(--cyan)">"${d.soundLike}"</div>
+        </div>
+        <div class="highlight" style="margin-bottom:12px">
+          <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:4px">Mechanism</div>
+          <div style="font-size:13.5px">${d.mechanism}</div>
+        </div>
+        <div class="highlight highlight-purple" style="margin-bottom:12px">
+          <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:4px">Disease Hint</div>
+          <div style="font-size:13.5px">${d.diseaseHint}</div>
+        </div>
+      </div>
+      <div>
+        <div class="highlight highlight-orange" style="margin-bottom:12px">
+          <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:4px">Why NCLEX Cares</div>
+          <div style="font-size:13.5px">${d.nclexWhy}</div>
+        </div>
+        <div class="highlight highlight-red" style="margin-bottom:12px">
+          <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:4px">Priority Nursing Action</div>
+          <div style="font-size:13.5px">${d.nursing}</div>
+        </div>
+        <div class="highlight highlight-green">
+          <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:4px">🎓 Student Simplified</div>
+          <div style="font-size:13.5px">${d.simple}</div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  detail.style.display = 'block';
+  detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// =============================================
+// SOUND ACTIVITY
+// =============================================
+const soundActivities = [
+  {
+    clue: 'You auscultate a patient\'s heart and hear a scratchy, leathery sound at the left sternal border. The patient is 28 years old with fever and sharp chest pain that started 2 days ago.',
+    options: ['S3 gallop — heart failure likely', 'Pericardial friction rub — pericarditis', 'Muffled heart sounds — tamponade', 'S4 gallop — ventricular stiffness'],
+    correct: 1,
+    rationale: 'A pericardial friction rub is the hallmark of pericarditis. The scratchy/leathery quality, combined with fever and sharp chest pain in a young patient, strongly suggests pericarditis.'
+  },
+  {
+    clue: 'A 72-year-old patient with hypertension reports increased shortness of breath. On auscultation, you hear S1, S2, and an extra sound that creates a "Ken-tuc-ky" rhythm.',
+    options: ['S4 — stiff ventricle from hypertension', 'S3 — fluid overload/heart failure', 'Murmur — valve disease', 'Pericardial rub — pericarditis'],
+    correct: 1,
+    rationale: '"Ken-tuc-ky" rhythm is the mnemonic for S3 gallop. In an adult (especially with HTN and dyspnea), S3 = fluid overload / heart failure. This is a high-yield NCLEX association.'
+  },
+  {
+    clue: 'A post-MI patient develops sudden hypotension, JVD, and you can barely hear heart sounds despite good stethoscope placement.',
+    options: ['New S3 — developing heart failure', 'Cardiac tamponade — muffled sounds', 'Pulmonary edema — crackles', 'Aortic dissection — BP difference'],
+    correct: 1,
+    rationale: 'Muffled heart sounds + hypotension + JVD = Beck\'s Triad = Cardiac Tamponade. This is an emergency. Notify physician immediately for pericardiocentesis.'
+  }
+];
+
+let soundActivityAnswered = [];
+
+function initSoundActivity() {
+  const container = document.getElementById('soundActivity');
+  container.innerHTML = '';
+  soundActivities.forEach((q, qi) => {
+    container.innerHTML += `
+      <div class="card" style="margin-bottom:20px">
+        <div class="card-title">Clinical Clue ${qi+1}</div>
+        <div class="highlight" style="margin-bottom:14px;font-style:italic">"${q.clue}"</div>
+        <div>
+          ${q.options.map((o, oi) => `
+            <button class="quiz-option" id="sa-${qi}-${oi}" onclick="answerSoundActivity(${qi}, ${oi})">${String.fromCharCode(65+oi)}. ${o}</button>
+          `).join('')}
+        </div>
+        <div class="feedback-box" id="sa-fb-${qi}"></div>
+      </div>
+    `;
+  });
+}
+
+function answerSoundActivity(qi, chosen) {
+  if (soundActivityAnswered.includes(qi)) return;
+  soundActivityAnswered.push(qi);
+  const q = soundActivities[qi];
+  document.querySelectorAll(`[id^="sa-${qi}-"]`).forEach(btn => btn.disabled = true);
+  const fb = document.getElementById(`sa-fb-${qi}`);
+  if (chosen === q.correct) {
+    document.getElementById(`sa-${qi}-${chosen}`).classList.add('correct');
+    fb.className = 'feedback-box correct-fb';
+    fb.innerHTML = '✅ <strong>Correct!</strong> ' + q.rationale;
+  } else {
+    document.getElementById(`sa-${qi}-${chosen}`).classList.add('wrong');
+    document.getElementById(`sa-${qi}-${q.correct}`).classList.add('correct');
+    fb.className = 'feedback-box wrong-fb';
+    fb.innerHTML = '❌ <strong>Not quite.</strong> ' + q.rationale;
+  }
+}
+
+// =============================================
+// SHOCK MATCH GAME
+// =============================================
+const shockMatchData = [
+  { clue: 'Cool, clammy skin + JVD + pulmonary crackles', answer: 'Cardiogenic Shock' },
+  { clue: 'Warm, flushed skin + high fever + vasodilation', answer: 'Septic Shock' },
+  { clue: 'Trauma patient + flat neck veins + tachycardia', answer: 'Hypovolemic Shock' },
+  { clue: 'Beck\'s Triad: ↓BP + JVD + muffled heart sounds', answer: 'Obstructive Shock (Tamponade)' },
+  { clue: 'Urticaria + stridor + sudden hypotension after bee sting', answer: 'Anaphylactic Shock' },
+  { clue: 'Post-MI + cold skin + bilateral crackles + low urine output', answer: 'Cardiogenic Shock' },
+];
+
+const shockTypes = ['Cardiogenic Shock', 'Septic Shock', 'Hypovolemic Shock', 'Obstructive Shock (Tamponade)', 'Anaphylactic Shock'];
+
+let selectedClue = null;
+let shockMatched = [];
+
+function initShockGame() {
+  selectedClue = null;
+  shockMatched = [];
+  const container = document.getElementById('shockMatchGame');
+  const shuffledClues = [...shockMatchData].sort(() => Math.random() - 0.5);
+
+  container.innerHTML = `
+    <div class="match-grid">
+      <div class="match-col">
+        <div style="font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:8px">Clinical Clues</div>
+        ${shuffledClues.map((item, i) => `
+          <div class="match-item" id="clue-${i}" onclick="selectClue(${i})" data-answer="${item.answer}">
+            ${item.clue}
+          </div>
+        `).join('')}
+      </div>
+      <div class="match-col">
+        <div style="font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:8px">Shock Types</div>
+        ${shockTypes.sort(() => Math.random() - 0.5).map((type, i) => `
+          <div class="match-item" id="type-${i}" onclick="selectType('${type}')" data-type="${type}">
+            ${type}
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function selectClue(i) {
+  document.querySelectorAll('[id^="clue-"]').forEach(el => {
+    if (!el.classList.contains('matched')) el.classList.remove('selected');
+  });
+  const el = document.getElementById('clue-' + i);
+  if (el.classList.contains('matched')) return;
+  el.classList.add('selected');
+  selectedClue = i;
+}
+
+function selectType(type) {
+  if (!selectedClue !== null && selectedClue === null) return;
+  if (selectedClue === null) {
+    document.getElementById('shockMatchFeedback').innerHTML = '<div class="alert alert-info">ℹ️ Select a clinical clue first!</div>';
+    return;
+  }
+  const clueEl = document.getElementById('clue-' + selectedClue);
+  if (!clueEl) return;
+  const correctAnswer = clueEl.dataset.answer;
+  const fb = document.getElementById('shockMatchFeedback');
+
+  if (type === correctAnswer) {
+    clueEl.classList.remove('selected');
+    clueEl.classList.add('matched');
+    // Mark the type as matched
+    document.querySelectorAll('[id^="type-"]').forEach(el => {
+      if (el.dataset.type === type) el.classList.add('matched');
+    });
+    fb.innerHTML = '<div class="alert alert-success">✅ Correct match!</div>';
+    shockMatched.push(selectedClue);
+  } else {
+    clueEl.classList.add('wrong-match');
+    setTimeout(() => clueEl.classList.remove('wrong-match', 'selected'), 800);
+    fb.innerHTML = `<div class="alert alert-emergency">❌ Not quite. "${clueEl.textContent.trim().substring(0,40)}..." does not match "${type}".</div>`;
+  }
+  selectedClue = null;
+
+  if (shockMatched.length === shockMatchData.length) {
+    fb.innerHTML = '<div class="alert alert-success">🎉 Excellent! You matched all shock types correctly!</div>';
+  }
+}
+
+// =============================================
+// MEDICATION SAFETY CHALLENGE
+// =============================================
+const medChallengeData = [
+  { med: 'Lisinopril (ACE Inhibitor)', question: 'A patient calls saying their tongue and lips started swelling 1 hour after taking their first dose. What is the priority action?', options: ['Give Benadryl and observe', 'Stop medication, assess airway, notify MD immediately', 'Reassure patient this is normal', 'Switch to ARB right now'], correct: 1, rationale: 'Angioedema is a potentially life-threatening adverse effect of ACE inhibitors. The medication must be stopped immediately and the airway assessed. Laryngeal edema can occur rapidly. Benadryl may help but airway is the priority.' },
+  { med: 'Metoprolol (Beta Blocker)', question: 'You are about to give metoprolol 25mg. The patient\'s pulse is 54 bpm. What do you do?', options: ['Give the medication as prescribed', 'Hold the medication and notify the physician', 'Give half the dose', 'Give it and monitor closely'], correct: 1, rationale: 'Beta blockers should be held if HR <60 bpm. A HR of 54 is below the threshold. The nurse should document, hold the dose, and notify the physician for further orders.' },
+  { med: 'Furosemide (Lasix)', question: 'A patient on furosemide and digoxin has a potassium level of 3.1 mEq/L. What is the priority concern?', options: ['Potassium is slightly low but not dangerous', 'Risk of digoxin toxicity — hypokalemia potentiates it', 'No concern — expected with loop diuretics', 'Increase furosemide to remove more fluid'], correct: 1, rationale: 'Hypokalemia increases the risk of digoxin toxicity. When K+ is low, digoxin is more likely to cause dangerous arrhythmias. This combination requires immediate reporting and K+ supplementation.' },
+  { med: 'Nitroglycerin SL', question: 'A patient is prescribed sildenafil (Viagra) and reports chest pain. He asks if he can take nitroglycerin. What do you tell him?', options: ['Yes, take 1 tab under the tongue now', 'No — this combination causes life-threatening hypotension', 'Only take it if pain is severe', 'Take half a tablet'], correct: 1, rationale: 'NEVER combine nitrates with PDE-5 inhibitors (sildenafil, tadalafil, vardenafil). Both cause vasodilation and the combination can cause severe, potentially fatal hypotension.' },
+];
+
+let medChallengeState = {};
+
+function initMedChallenge() {
+  const container = document.getElementById('medChallenge');
+  if (!container) return;
+  container.innerHTML = medChallengeData.map((q, qi) => `
+    <div class="card" style="margin-bottom:20px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <div class="badge badge-info">💊</div>
+        <div style="font-size:16px;font-weight:700">${q.med}</div>
+      </div>
+      <div class="highlight highlight-blue" style="margin-bottom:14px;font-style:italic">${q.question}</div>
+      ${q.options.map((o, oi) => `<button class="quiz-option" id="mc-${qi}-${oi}" onclick="answerMedChallenge(${qi},${oi})">${String.fromCharCode(65+oi)}. ${o}</button>`).join('')}
+      <div class="feedback-box" id="mc-fb-${qi}"></div>
+    </div>
+  `).join('');
+}
+
+function answerMedChallenge(qi, chosen) {
+  if (medChallengeState[qi]) return;
+  medChallengeState[qi] = true;
+  const q = medChallengeData[qi];
+  document.querySelectorAll(`[id^="mc-${qi}-"]`).forEach(b => b.disabled = true);
+  const fb = document.getElementById(`mc-fb-${qi}`);
+  if (chosen === q.correct) {
+    document.getElementById(`mc-${qi}-${chosen}`).classList.add('correct');
+    fb.className = 'feedback-box correct-fb';
+    fb.innerHTML = '✅ <strong>Correct!</strong> ' + q.rationale;
+  } else {
+    document.getElementById(`mc-${qi}-${chosen}`).classList.add('wrong');
+    document.getElementById(`mc-${qi}-${q.correct}`).classList.add('correct');
+    fb.className = 'feedback-box wrong-fb';
+    fb.innerHTML = '❌ <strong>Not quite.</strong> ' + q.rationale;
+  }
+}
+
+// =============================================
+// CASE SCENARIOS
+// =============================================
+const cases = [
+  {
+    num: 1,
+    title: 'The Leaning Patient',
+    history: 'A 24-year-old male college student presents to the ED with 3 days of worsening chest pain. He recently had a URI (common cold) 2 weeks ago. He is otherwise healthy.',
+    vitals: { 'HR': { v: '102', c: 'warning' }, 'BP': { v: '118/76', c: 'normal' }, 'Temp': { v: '38.6°C', c: 'abnormal' }, 'RR': { v: '18', c: 'normal' }, 'SpO₂': { v: '97%', c: 'normal' } },
+    physical: 'Patient is sitting up and leaning forward on the stretcher. He reports the pain is worse when he lies flat and when he takes a deep breath. On auscultation, you hear a scratchy sound at the left sternal border.',
+    question: 'What is the MOST likely diagnosis and priority nursing intervention?',
+    options: [
+      'STEMI — activate cath lab, give aspirin',
+      'Pericarditis — administer NSAIDs, position for comfort, monitor for effusion',
+      'Pulmonary embolism — anticoagulation immediately',
+      'Pneumonia — administer antibiotics and oxygen'
+    ],
+    correct: 1,
+    rationale: 'Classic pericarditis: sharp/pleuritic chest pain, fever, post-viral history, pain worse lying flat/better leaning forward, pericardial friction rub. NSAIDs are first-line treatment. Monitoring for effusion/tamponade development is priority.',
+    breakdown: 'Pain character (sharp, pleuritic) + position clue (better leaning forward) + timing (post-viral) + sound (friction rub) + fever = Pericarditis pattern.',
+    wrongExpl: ['STEMI pain is crushing and not positional. No ST changes described in a pattern consistent with STEMI.', '', 'PE typically causes sudden dyspnea and pleuritic pain but lacks the friction rub and post-viral history.', 'Pneumonia doesn\'t cause a friction rub and typically presents with cough, productive sputum, and crackles.']
+  },
+  {
+    num: 2,
+    title: 'The Triad Emergency',
+    history: 'A 58-year-old female, 3 days post-cardiac surgery, is in the ICU. The nurse notices she has become increasingly anxious and restless over the past 30 minutes.',
+    vitals: { 'HR': { v: '118', c: 'abnormal' }, 'BP': { v: '82/64', c: 'abnormal' }, 'PP': { v: '18 mmHg', c: 'abnormal' }, 'RR': { v: '24', c: 'warning' }, 'SpO₂': { v: '93%', c: 'warning' } },
+    physical: 'Neck veins are visibly distended (JVD). Heart sounds are distant and muffled. Skin is pale and clammy. Patient is confused.',
+    question: 'Which action should the nurse take FIRST?',
+    options: [
+      'Administer a 500 mL NS fluid bolus rapidly',
+      'Notify the physician immediately — this patient has signs of cardiac tamponade',
+      'Increase oxygen and reposition patient',
+      'Obtain a 12-lead ECG and await results'
+    ],
+    correct: 1,
+    rationale: 'Beck\'s Triad is present: Hypotension (BP 82/64) + JVD + Muffled heart sounds = Cardiac Tamponade. Post-surgical = blood may be accumulating in pericardial sac. This is a life-threatening emergency. Physician must be notified IMMEDIATELY for pericardiocentesis.',
+    breakdown: 'The three components of Beck\'s Triad are ALL present. Narrowed pulse pressure (18 mmHg) is another clue. Post-cardiac surgery context increases risk of hemopericardium.',
+    wrongExpl: ['Fluid bolus may temporarily support BP but delays definitive treatment (pericardiocentesis). It\'s not the first priority.', '', 'Oxygen and positioning are supportive but not the first action when a life-threatening emergency is identified.', 'ECG may show electrical alternans (another tamponade sign) but getting results wastes critical time.']
+  },
+  {
+    num: 3,
+    title: 'The Feverish IV Drug User',
+    history: 'A 31-year-old with a history of IV heroin use presents with 2 weeks of fever, chills, and fatigue. He\'s been feeling "off" and has had some confusion episodes.',
+    vitals: { 'HR': { v: '108', c: 'warning' }, 'BP': { v: '106/70', c: 'warning' }, 'Temp': { v: '39.2°C', c: 'abnormal' }, 'RR': { v: '20', c: 'normal' }, 'SpO₂': { v: '95%', c: 'normal' } },
+    physical: 'Small painless red spots noted on palms. Painful nodules on fingertips. Splinter hemorrhages under several fingernails. On auscultation: a new systolic murmur is detected at the apex.',
+    question: 'What is the priority nursing action BEFORE starting antibiotics?',
+    options: [
+      'Start broad-spectrum IV antibiotics immediately',
+      'Obtain echocardiogram to confirm diagnosis',
+      'Obtain blood cultures x3 from different sites before any antibiotics',
+      'Place patient in isolation immediately'
+    ],
+    correct: 2,
+    rationale: 'Blood cultures MUST be obtained before antibiotics are given. Cultures identify the causative organism and guide targeted therapy. Starting antibiotics first will render cultures negative and delay targeted treatment. Echocardiogram is needed but not before cultures.',
+    breakdown: 'Risk factors (IV drug use) + fever + Janeway lesions + Osler nodes + splinter hemorrhages + new murmur = Infective Endocarditis. Duke Criteria. Blood cultures are diagnostic and must precede antibiotics.',
+    wrongExpl: ['Antibiotics are needed urgently but AFTER blood cultures are drawn. This is a critical NCLEX sequence.', 'Echo confirms vegetation but cultures come first.', '', 'Isolation is not the priority here; endocarditis is not typically contagious.']
+  },
+  {
+    num: 4,
+    title: 'Pump Failure Post-MI',
+    history: 'A 67-year-old male had a massive anterior MI 6 hours ago and underwent PCI. He is now in the cardiac care unit.',
+    vitals: { 'HR': { v: '124', c: 'abnormal' }, 'BP': { v: '78/52', c: 'abnormal' }, 'RR': { v: '28', c: 'abnormal' }, 'SpO₂': { v: '88%', c: 'abnormal' }, 'UO': { v: '12 mL/hr', c: 'abnormal' } },
+    physical: 'Cool, clammy, mottled skin. Bilateral coarse crackles heard throughout lung fields. JVD present. Patient is confused. Capillary refill >4 seconds.',
+    question: 'This patient is in cardiogenic shock. Which intervention should the nurse QUESTION?',
+    options: [
+      'Administer dobutamine infusion for inotropic support',
+      'Apply supplemental oxygen and prepare for intubation',
+      'Rapidly infuse 2 liters of normal saline',
+      'Place Foley catheter to monitor hourly urine output'
+    ],
+    correct: 2,
+    rationale: 'In cardiogenic shock, the problem is a FAILED PUMP — not a volume problem. Giving 2L of fluid will worsen pulmonary congestion (crackles already present), causing pulmonary edema. Fluid boluses are contraindicated in cardiogenic shock. Inotropes and vasopressors are the treatment.',
+    breakdown: 'Cardiogenic shock = pump failure. Adding volume to an already congested system (crackles, JVD) will overflow the pulmonary circulation. This is the KEY differentiator from hypovolemic shock.',
+    wrongExpl: ['Dobutamine is correct — it increases contractility.', 'O₂ and airway support are correct — hypoxia is present.', '', 'Foley catheter is correct — hourly urine output must be monitored.']
+  },
+  {
+    num: 5,
+    title: 'Heart Failure with Extra Sound',
+    history: 'A 74-year-old woman with a history of hypertension and previous MI presents with worsening shortness of breath over 2 weeks. She has gained 8 lbs.',
+    vitals: { 'HR': { v: '92', c: 'normal' }, 'BP': { v: '158/96', c: 'warning' }, 'RR': { v: '22', c: 'warning' }, 'SpO₂': { v: '91%', c: 'abnormal' }, 'Wt': { v: '+8 lbs', c: 'abnormal' } },
+    physical: 'Bilateral pitting edema to the knees. JVD present. Crackles at bilateral lung bases. On auscultation: S1, S2, and extra sound in early diastole creating "Ken-tuc-ky" rhythm.',
+    question: 'What does the extra heart sound most indicate and what is the priority intervention?',
+    options: [
+      'S4 gallop — administer metoprolol for BP control',
+      'S3 gallop — this indicates fluid overload; administer diuretics and notify MD',
+      'Pericardial friction rub — administer NSAIDs',
+      'S2 splitting — this is a normal variant, observe'
+    ],
+    correct: 1,
+    rationale: 'S3 gallop ("Ken-tuc-ky" = early diastole) in an adult indicates fluid overload and heart failure. Combined with weight gain, crackles, edema, JVD = decompensated heart failure. Diuretics are priority to reduce fluid overload.',
+    breakdown: '"Ken-tuc-ky" = S3. Adult + dyspnea + weight gain + edema = decompensated HF. S3 is the sound of a floppy ventricle overwhelmed with fluid.',
+    wrongExpl: ['S4 = "Ten-nes-see" = late diastole. The sound described is early diastole = S3.', '', 'A pericardial rub is scratchy/leathery, not a gallop rhythm.', 'S2 splitting is heard at the base and is not a gallop rhythm.']
+  },
+  {
+    num: 6,
+    title: 'The Coughing Patient',
+    history: 'A 55-year-old diabetic woman was started on lisinopril 3 weeks ago for hypertension. She calls the clinic complaining of a constant dry, irritating cough that started 2 weeks ago.',
+    vitals: { 'HR': { v: '76', c: 'normal' }, 'BP': { v: '128/80', c: 'normal' }, 'Temp': { v: '37.0°C', c: 'normal' }, 'RR': { v: '16', c: 'normal' }, 'SpO₂': { v: '98%', c: 'normal' } },
+    physical: 'Lungs clear to auscultation. No wheezing or crackles. No other symptoms.',
+    question: 'What is the most appropriate nursing response?',
+    options: [
+      'Tell her the cough is normal and will go away',
+      'Advise her to take cough syrup and continue the medication',
+      'Inform the MD — this is likely an ACE inhibitor side effect; she may need to switch to an ARB',
+      'Stop the medication immediately without consulting the physician'
+    ],
+    correct: 2,
+    rationale: 'Dry, persistent cough is the most common side effect of ACE inhibitors (occurs in 5-15% of patients). It is caused by bradykinin accumulation. The nurse should notify the physician who may switch to an ARB (which does not cause cough but has similar therapeutic effects).',
+    breakdown: 'ACE-I → bradykinin accumulates → irritates airways → dry cough. The cough timing matches medication initiation. ARBs are the alternative as they block the receptor but don\'t affect bradykinin.',
+    wrongExpl: ['The cough from ACE-I does not go away on its own while the drug is continued.', 'Cough syrup will not treat the underlying cause.', '', 'Never tell patients to stop medications independently — always involve the physician.']
+  },
+  {
+    num: 7,
+    title: 'The Beta Blocker Caution',
+    history: 'A 62-year-old type 1 diabetic male is on metoprolol for hypertension and had a blood glucose of 54 mg/dL (hypoglycemia). He does not feel his usual hypoglycemia symptoms (sweating, palpitations, anxiety).',
+    vitals: { 'HR': { v: '58', c: 'warning' }, 'BP': { v: '118/72', c: 'normal' }, 'BG': { v: '54 mg/dL', c: 'abnormal' }, 'RR': { v: '14', c: 'normal' }, 'SpO₂': { v: '99%', c: 'normal' } },
+    physical: 'Patient appears slightly confused and pale. He says "I feel fine actually" despite confirmed low glucose.',
+    question: 'Why is this patient not feeling his hypoglycemia symptoms, and what is the teaching priority?',
+    options: [
+      'His glucose meter is faulty — recheck glucose',
+      'Beta blockers mask tachycardia, sweating, and other sympathetic signs of hypoglycemia',
+      'Type 1 diabetics don\'t feel hypoglycemia symptoms',
+      'He is in denial about his low glucose'
+    ],
+    correct: 1,
+    rationale: 'Beta blockers block the β-adrenergic (sympathetic) response to hypoglycemia. Symptoms like tachycardia, palpitations, and tremor are masked. Only sweating (cholinergic) may remain. This is dangerous for diabetics who rely on these symptoms as warnings. Teaching: monitor glucose frequently; sweating is still a clue.',
+    breakdown: 'Beta blockade → no tachycardia response → no palpitations → hypoglycemia goes undetected. The brain still needs glucose but the body\'s alarm system is silenced.',
+    wrongExpl: ['Glucose of 54 is confirmed low — no reason to doubt.', '', 'Hypoglycemia unawareness can occur in DM but the immediate cause here is beta blocker masking.', 'He\'s not in denial — the drug masked his warning symptoms.']
+  },
+  {
+    num: 8,
+    title: 'Priority Cardiovascular Assessment',
+    history: 'You are a nurse with 4 patients. Which patient do you assess FIRST?',
+    vitals: {},
+    physical: '',
+    patientList: [
+      'Patient A: 68yo with CHF, SpO₂ 94%, mild ankle edema, complaining of fatigue',
+      'Patient B: 54yo post-cardiac catheterization, blood pressure just dropped from 140/90 to 88/58, HR 118 and rising',
+      'Patient C: 72yo with stable angina, requesting pain medication rated 3/10',
+      'Patient D: 61yo on warfarin, INR result just came back at 3.2'
+    ],
+    question: 'Which patient requires IMMEDIATE assessment?',
+    options: [
+      'Patient A — SpO₂ 94% is concerning',
+      'Patient B — sudden hypotension post-cath may indicate hemorrhage or tamponade',
+      'Patient C — chest pain is always priority',
+      'Patient D — elevated INR requires immediate intervention'
+    ],
+    correct: 1,
+    rationale: 'Patient B has an acute hemodynamic change (BP dropped 52 points, HR rising) in the post-procedure period. This suggests possible retroperitoneal bleed, femoral site bleeding, or cardiac tamponade. This is the most unstable and life-threatening situation requiring immediate assessment.',
+    breakdown: 'Prioritize the MOST UNSTABLE patient. Acute BP drop post-cath = potential hemorrhage. Patient A is chronic and compensating. Patient C\'s pain is mild. Patient D\'s INR is borderline elevated but not emergent.',
+    wrongExpl: ['Patient A with SpO₂ 94% is below normal but patient B\'s acute change is more immediately threatening.', '', 'Chest pain 3/10 in a stable angina patient is less urgent than an acute hemodynamic collapse.', 'INR of 3.2 is slightly above goal (2-3) but not an emergency if no bleeding signs.']
+  }
+];
+
+function initCases() {
+  const container = document.getElementById('caseContainer');
+  container.innerHTML = cases.map(c => `
+    <div class="case-card" id="case-${c.num}">
+      <div class="case-header">
+        <div class="case-number">${c.num}</div>
+        <div>
+          <div style="font-weight:700;font-size:16px">${c.title}</div>
+          <div style="font-size:12px;color:var(--muted)">NCLEX Case Scenario</div>
+        </div>
+      </div>
+      <div class="case-body">
+        <div class="highlight" style="margin-bottom:14px">
+          <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:6px">Patient History</div>
+          ${c.history}
+        </div>
+
+        ${Object.keys(c.vitals).length > 0 ? `
+        <div>
+          <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:8px">Vitals</div>
+          <div class="vitals-grid">
+            ${Object.entries(c.vitals).map(([k,v]) => `
+              <div class="vital-box">
+                <div class="vital-label">${k}</div>
+                <div class="vital-value ${v.c}">${v.v}</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>` : ''}
+
+        ${c.patientList ? `
+        <div style="margin-bottom:14px">
+          <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:8px">Your Patients</div>
+          ${c.patientList.map(p => `<div class="highlight" style="margin-bottom:8px;font-size:13.5px">🏥 ${p}</div>`).join('')}
+        </div>` : ''}
+
+        ${c.physical ? `
+        <button class="btn btn-secondary" style="margin-bottom:14px" onclick="toggleReveal('physical-${c.num}')">🔍 Reveal Physical Findings</button>
+        <div class="reveal-content" id="physical-${c.num}">
+          <div class="highlight highlight-orange">${c.physical}</div>
+        </div>` : ''}
+
+        <div style="font-weight:700;font-size:14px;margin:16px 0 10px;color:var(--cyan)">❓ ${c.question}</div>
+
+        <div>
+          ${c.options.map((o, oi) => `
+            <button class="quiz-option" id="case-opt-${c.num}-${oi}" onclick="answerCase(${c.num}, ${oi})">${String.fromCharCode(65+oi)}. ${o}</button>
+          `).join('')}
+        </div>
+
+        <div class="feedback-box" id="case-fb-${c.num}"></div>
+
+        <div class="reveal-content" id="case-reasoning-${c.num}">
+          <div class="card highlight-blue" style="margin-top:14px">
+            <div class="card-title">🧠 Clinical Reasoning Breakdown</div>
+            <p style="font-size:13.5px">${c.breakdown}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+let caseAnswered = {};
+
+function answerCase(caseNum, chosen) {
+  if (caseAnswered[caseNum]) return;
+  caseAnswered[caseNum] = true;
+  const c = cases.find(x => x.num === caseNum);
+  document.querySelectorAll(`[id^="case-opt-${caseNum}-"]`).forEach(b => b.disabled = true);
+  const fb = document.getElementById(`case-fb-${caseNum}`);
+  if (chosen === c.correct) {
+    document.getElementById(`case-opt-${caseNum}-${chosen}`).classList.add('correct');
+    fb.className = 'feedback-box correct-fb';
+    fb.innerHTML = '✅ <strong>Correct!</strong> ' + c.rationale;
+  } else {
+    document.getElementById(`case-opt-${caseNum}-${chosen}`).classList.add('wrong');
+    document.getElementById(`case-opt-${caseNum}-${c.correct}`).classList.add('correct');
+    fb.className = 'feedback-box wrong-fb';
+    fb.innerHTML = `❌ <strong>Not quite.</strong> ${c.rationale}<br><br><em>Why not ${String.fromCharCode(65+chosen)}?</em> ${c.wrongExpl[chosen] || 'This option does not address the priority correctly.'}`;
+  }
+  document.getElementById(`case-reasoning-${caseNum}`).classList.add('open');
+}
+
+// =============================================
+// QUIZ
+// =============================================
+const quizQuestions = [
+  { q: 'A patient with endocarditis is ordered IV antibiotics. The nurse should obtain which diagnostic test FIRST?', options: ['Echocardiogram', 'CBC with differential', 'Blood cultures x3 from different sites', 'Chest X-ray'], correct: 2, rationale: 'Blood cultures must be obtained BEFORE antibiotics to identify the organism. Antibiotics first will render cultures negative.' },
+  { q: 'Which heart sound is associated with fluid overload and heart failure in an adult?', options: ['S1', 'S2', 'S3 (Ken-tuc-ky gallop)', 'S4 (Ten-nes-see gallop)'], correct: 2, rationale: 'S3 = early diastolic sound = fluid rushing into floppy ventricle = heart failure/fluid overload. "Ken-tuc-ky" rhythm.' },
+  { q: 'A patient taking lisinopril develops swelling of the tongue and difficulty swallowing. The nurse\'s PRIORITY action is:', options: ['Administer diphenhydramine', 'Stop the medication and assess the airway immediately', 'Notify the physician for a medication change', 'Elevate head of bed and monitor'], correct: 1, rationale: 'Angioedema (swelling of tongue/throat) is a life-threatening ACE-I side effect. Airway is the priority. Stop medication, assess/protect airway, notify physician STAT.' },
+  { q: 'Beck\'s Triad includes which three findings?', options: ['Fever, JVD, murmur', 'Hypotension, JVD, muffled heart sounds', 'Chest pain, crackles, edema', 'Tachycardia, hypotension, diaphoresis'], correct: 1, rationale: 'Beck\'s Triad = Hypotension + JVD + Muffled heart sounds = classic presentation of cardiac tamponade.' },
+  { q: 'A patient on beta blockers and insulin has a blood glucose of 52 mg/dL but reports feeling fine. The nurse understands this is because:', options: ['The glucose meter is inaccurate', 'Beta blockers mask sympathetic symptoms of hypoglycemia (tachycardia, palpitations)', 'Type 2 diabetics feel hypoglycemia differently', 'The patient has high glucose tolerance'], correct: 1, rationale: 'Beta blockers block adrenergic (sympathetic) hypoglycemia symptoms. Only sweating may remain as a clue. Teach patients to monitor glucose frequently.' },
+  { q: 'Which position best relieves chest pain from pericarditis?', options: ['Supine (flat)', 'Left lateral decubitus', 'Sitting up, leaning forward', 'Trendelenburg'], correct: 2, rationale: 'Pericarditis pain is better when sitting up and leaning forward — reduces friction between inflamed pericardial layers.' },
+  { q: 'A patient is on furosemide and digoxin. K+ = 3.0 mEq/L. What is the PRIORITY concern?', options: ['Fluid retention risk', 'Hypokalemia increases risk of digoxin toxicity and fatal arrhythmias', 'K+ will correct with diet', 'Increase furosemide dose'], correct: 1, rationale: 'Hypokalemia potentiates digoxin toxicity. Low K+ with digoxin = dangerous cardiac arrhythmia risk. Report and replace K+ immediately.' },
+  { q: 'Which finding in a patient with suspected cardiac tamponade requires immediate action?', options: ['Heart rate of 88', 'SpO₂ of 96%', 'JVD, hypotension, and muffled heart sounds', 'Mild ankle edema'], correct: 2, rationale: 'JVD + hypotension + muffled heart sounds = Beck\'s Triad = Cardiac Tamponade = medical emergency. Notify physician for pericardiocentesis.' },
+  { q: 'The nurse should hold metoprolol if the patient\'s heart rate is:', options: ['Less than 100 bpm', 'Less than 60 bpm', 'Less than 80 bpm', 'Greater than 60 bpm'], correct: 1, rationale: 'Beta blockers should be held when HR <60 bpm (bradycardia). Document, hold dose, notify physician for further orders.' },
+  { q: 'A patient asks why they cannot take nitroglycerin with sildenafil (Viagra). The best nurse response is:', options: ['They can be taken together if 2 hours apart', 'Both drugs cause vasodilation; combined they can cause severe, life-threatening hypotension', 'Sildenafil raises BP so they counteract each other', 'This is only a concern in elderly patients'], correct: 1, rationale: 'Nitrates + PDE-5 inhibitors = severe hypotension, potentially fatal. This combination is absolutely contraindicated.' },
+  { q: 'S4 heart sound is most associated with which condition?', options: ['Heart failure with fluid overload', 'Pericarditis', 'Hypertension and ventricular hypertrophy (stiff ventricle)', 'Normal variant in adults'], correct: 2, rationale: 'S4 = atrium squeezing against a stiff, hypertrophied ventricle. Associated with HTN, LVH, aortic stenosis. ALWAYS abnormal.' },
+  { q: 'A patient in cardiogenic shock also has bilateral crackles and JVD. The nurse receives an order for a 1L fluid bolus. The nurse should:', options: ['Give the fluid as ordered', 'Question the order — fluid will worsen pulmonary congestion in cardiogenic shock', 'Give half the volume', 'Give it slowly over 8 hours'], correct: 1, rationale: 'Cardiogenic shock is pump failure. Adding fluid to an already congested system worsens pulmonary edema. The order should be questioned and inotropic support discussed.' },
+  { q: 'Norepinephrine (Levophed) works primarily as a:', options: ['Positive inotrope — increases contractility', 'Beta-1 agonist — increases heart rate', 'Alpha-1 agonist — powerful vasoconstriction to raise BP', 'Diuretic — reduces fluid volume'], correct: 2, rationale: 'Norepinephrine is the primary vasopressor. It causes potent vasoconstriction (alpha-1) to raise BP in shock states. Used first-line in septic shock.' },
+  { q: 'A patient with endocarditis is at highest risk for which complication?', options: ['Pulmonary edema from fluid overload', 'Embolic events (stroke, pulmonary emboli)', 'Cardiac tamponade', 'Hyperkalemia from antibiotics'], correct: 1, rationale: 'Vegetations on heart valves can dislodge and travel as emboli. Left-sided endocarditis → stroke. Right-sided → pulmonary emboli. Embolic risk is the major life-threatening complication.' },
+  { q: 'Which patient assessment finding is MOST concerning in a post-cardiac catheterization patient?', options: ['Pain at the puncture site rated 2/10', 'BP drop from 140/88 to 86/58 with rising HR', 'Patient reports needing to urinate', 'Small bruise at insertion site'], correct: 1, rationale: 'Sudden hemodynamic instability post-cath suggests bleeding (retroperitoneal, femoral) or tamponade. This is the most life-threatening finding requiring immediate response.' },
+  { q: 'Warfarin therapy is monitored using which lab value?', options: ['aPTT', 'PT/INR', 'CBC platelet count', 'Anti-Xa level'], correct: 1, rationale: 'Warfarin is monitored by INR (International Normalized Ratio). Therapeutic goal is typically 2–3. Values >3.5 indicate bleeding risk.' },
+  { q: 'Dobutamine is best described as:', options: ['A vasopressor that increases BP by vasoconstriction', 'A diuretic that reduces preload', 'A positive inotrope that increases myocardial contractility', 'An antiarrhythmic that slows heart rate'], correct: 2, rationale: 'Dobutamine is a beta-1 agonist and positive inotrope. It increases the force of cardiac contraction, improving cardiac output in cardiogenic shock and decompensated heart failure.' },
+  { q: 'A patient with digoxin toxicity would MOST likely exhibit:', options: ['Hypertension and dry cough', 'Bradycardia, nausea, and yellow-green visual disturbances', 'Peripheral edema and weight gain', 'Tachycardia and chest pain'], correct: 1, rationale: 'Classic digoxin toxicity: bradycardia, GI symptoms (N/V/anorexia), and yellow-green halos around lights (chromatopsia). Hypokalemia worsens toxicity.' },
+  { q: 'Which shock type presents with WARM, FLUSHED skin?', options: ['Cardiogenic shock', 'Hypovolemic shock', 'Obstructive shock', 'Distributive (septic/anaphylactic) shock'], correct: 3, rationale: 'Distributive shock (septic, anaphylactic) causes massive vasodilation → blood pools in periphery → warm, flushed skin. Cardiogenic and hypovolemic shock cause vasoconstriction → cool, clammy skin.' },
+  { q: 'Which patient has highest priority for assessment?', options: ['72yo with stable COPD requesting inhaler', '58yo with chest pain 8/10 and diaphoresis, unrelieved by NTG', '64yo diabetic with BG of 180 mg/dL', '55yo with ankle edema and mild dyspnea on exertion'], correct: 1, rationale: 'Severe chest pain unrelieved by nitroglycerin + diaphoresis = possible MI. This is the most immediately life-threatening situation. Priority is always the most unstable patient.' },
+];
+
+let quizScore = 0;
+let quizAnswered = {};
+
+function initQuiz() {
+  const container = document.getElementById('quizContainer');
+  container.innerHTML = quizQuestions.map((q, qi) => `
+    <div class="card" style="margin-bottom:20px" id="quiz-card-${qi}">
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:12px">
+        <div class="badge badge-info" style="flex-shrink:0;margin-top:2px">${qi+1}</div>
+        <div style="font-weight:600;font-size:14px;line-height:1.5">${q.q}</div>
+      </div>
+      ${q.options.map((o, oi) => `
+        <button class="quiz-option" id="q${qi}-${oi}" onclick="answerQuiz(${qi}, ${oi})">${String.fromCharCode(65+oi)}. ${o}</button>
+      `).join('')}
+      <div class="feedback-box" id="qfb-${qi}"></div>
+    </div>
+  `).join('');
+}
+
+function updateQuizScore() {
+  const answered = Object.keys(quizAnswered).length;
+  const total = quizQuestions.length;
+  const pct = Math.round((quizScore / total) * 100);
+  document.getElementById('quizScoreDisplay').textContent = `${quizScore}/${total}`;
+  document.getElementById('quizScoreLabel').textContent = `${answered} answered · ${pct}% correct so far`;
+  document.getElementById('quizProgress').style.width = (answered / total * 100) + '%';
+}
+
+function answerQuiz(qi, chosen) {
+  if (quizAnswered[qi]) return;
+  quizAnswered[qi] = true;
+  const q = quizQuestions[qi];
+  document.querySelectorAll(`[id^="q${qi}-"]`).forEach(b => b.disabled = true);
+  const fb = document.getElementById(`qfb-${qi}`);
+  if (chosen === q.correct) {
+    quizScore++;
+    document.getElementById(`q${qi}-${chosen}`).classList.add('correct');
+    fb.className = 'feedback-box correct-fb';
+    fb.innerHTML = '✅ <strong>Correct!</strong> ' + q.rationale;
+  } else {
+    document.getElementById(`q${qi}-${chosen}`).classList.add('wrong');
+    document.getElementById(`q${qi}-${q.correct}`).classList.add('correct');
+    fb.className = 'feedback-box wrong-fb';
+    fb.innerHTML = '❌ <strong>Incorrect.</strong> ' + q.rationale;
+  }
+  updateQuizScore();
+}
+
+function resetQuiz() {
+  quizScore = 0;
+  quizAnswered = {};
+  initQuiz();
+  updateQuizScore();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// =============================================
+// INITIALIZE ALL
+// =============================================
+document.addEventListener('DOMContentLoaded', () => {
+  initSoundActivity();
+  initShockGame();
+  initCases();
+  initQuiz();
+  initMedChallenge();
+  updateQuizScore();
+});
+</script>
+</body>
+</html>
